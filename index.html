@@ -1,59 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>مركز الباشّا ستور</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#fff;color:#151515}
-a{text-decoration:none;color:inherit}.top{background:#090909;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
-.logo{width:76px;height:76px;object-fit:contain}.hamb{font-size:28px}.cart{font-size:25px}
-.hero{background:linear-gradient(135deg,#090909 45%,#f18400);color:#fff;padding:42px 7%;display:flex;align-items:center;gap:30px;min-height:430px}
-.hero .copy{flex:1}.hero .brand{color:#ff8a00;font-size:34px;font-weight:800}.hero h1{font-size:50px;margin:5px 0}.hero p{font-size:23px;color:#ff9b20}.hero img{width:min(390px,42vw);border-radius:50%;background:#111}
-.btn{display:inline-block;background:#111;color:#fff;border:2px solid #ff8a00;padding:13px 28px;border-radius:28px;font-weight:700}
-.wrap{max-width:1100px;margin:auto;padding:30px 18px}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:-40px;position:relative}
-.feature,.card,.review{background:#fff;border-radius:20px;padding:22px;text-align:center;box-shadow:0 5px 22px #00000012}.feature b{display:block;color:#f07800;margin-bottom:7px;font-size:19px}
-h2{text-align:center;font-size:30px;margin:42px 0 22px}.line{width:55px;height:4px;background:#f07800;margin:-12px auto 25px;border-radius:5px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card img{width:100%;height:160px;object-fit:contain}.card h3{margin:8px 0}
-.dark{background:#0b0b0b;color:#fff;border-radius:22px;padding:25px}.why{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;text-align:center}.why b{color:#ff8a00;display:block}
-.cta{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:18px 25px;border-radius:20px;box-shadow:0 5px 22px #0001;margin:28px 0}.wa{background:#22b85a;color:white;border-radius:25px;padding:12px 25px;font-weight:700}
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.stars{color:#f07800;font-size:22px}
-footer{background:#090909;color:#fff;padding:30px 7%;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}footer h3{color:#ff8a00}
-@media(max-width:750px){.hero{flex-direction:column;text-align:center}.hero h1{font-size:38px}.hero img{width:260px}.features,.grid,.why,.reviews,footer{grid-template-columns:repeat(2,1fr)}.cta{flex-direction:column;gap:15px;text-align:center}}
-@media(max-width:450px){.features,.grid,.why,.reviews,footer{grid-template-columns:1fr}.hero{padding:30px 18px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الباشّا ستور | لصيانة الأجهزة المنزلية والإلكترونية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d97706;
+            --primary-dark: #b45309;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; padding-bottom: 50px; }
+        header { background: linear-gradient(135deg, #1e293b, #0f172a); border-bottom: 2px solid var(--primary); padding: 20px; text-align: center; }
+        .hero { text-align: center; padding: 40px 20px; background: radial-gradient(circle at top, rgba(217, 119, 6, 0.15), transparent); }
+        .hero img { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--primary); margin-bottom: 20px; object-fit: cover; }
+        .hero h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 10px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; }
+        .btn-whatsapp { display: inline-block; background-color: #25d366; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-top: 20px; font-size: 1.1rem; }
+        .section-title { text-align: center; font-size: 1.8rem; margin: 40px 0 20px; color: var(--primary); position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--primary); margin: 8px auto 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .maintenance-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); text-align: right; }
+        .maintenance-card img { width: 100%; height: 200px; object-fit: cover; }
+        .maintenance-card .content { padding: 15px; }
+        .maintenance-card h3 { color: var(--primary); margin-bottom: 8px; }
+        .maintenance-card p { color: var(--text-muted); font-size: 0.95rem; }
+        .maintenance-card .date { font-size: 0.8rem; color: #64748b; margin-top: 10px; }
+        footer { text-align: center; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px; color: var(--text-muted); }
+    </style>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-<header class="top"><div class="hamb">☰</div><img class="logo" src="logo.png"><div class="cart">🛒</div></header>
-<section class="hero"><div class="copy"><div class="brand">مركز</div><h1>الباشّا ستور</h1><p>لصيانة الأجهزة المنزلية والإلكترونية</p><div>خبرة • أمانة • جودة</div><br><a class="btn" href="https://wa.me/201117213292">تواصل معنا الآن عبر واتساب</a></div><img src="logo.png" alt="شعار مركز الباشّا ستور"></section>
-<main class="wrap">
-<section class="features">
-<div class="feature"><b>🛡 الضمان </b>ضمان حقيقي 3 شهور من تاريخ الاستلام </div>
-<div class="feature"><b>⏱ سرعة في التنفيذ</b>صيانه في أسرع وقت</div>
-<div class="feature"><b>⚙️ خدمة احترافية</b>فنيين متخصصين</div>
-<div class="feature"><b>🎧 دعم العملاء</b>متاحين لخدمتك دائمًا</div>
-</section>
-<h2>خدماتنا</h2><div class="line"></div>
-<section class="grid">
-<div class="card"><div style="font-size:55px">🧰</div><h3>كشف صيانه </h3><p>فحص وإصلاح الأعطال</p></div>
-<div class="card"><div style="font-size:55px">🏠</div><h3>أجهزة منزلية</h3><p>خدمات صيانة للأجهزة المنزلية</p></div>
-<div class="card"><div style="font-size:55px">📺</div><h3>أجهزة إلكترونية</h3><p>تشخيص وإصلاح إلكترونيات</p></div>
-<div class="card"><div style="font-size:55px">🧹</div><h3>تنظيف وصيانة</h3><p>تنظيف وفحص وتشغيل</p></div>
-</section>
-<h2>قسم الصيانة</h2><div class="line"></div>
-<section id="maintenance" class="grid"></section>
-<section class="dark"><h2 style="color:#fff;margin-top:0">لماذا تختارنا؟</h2><div class="why">
-<div><b>🏷 أسعار مناسبة</b>أفضل الأسعار في السوق</div><div><b>👨‍🔧 فنيين متخصصين</b>خبرة طويلة في المجال</div><div><b>✓ جودة مضمونة</b>نستخدم قطع غيار أصلية</div><div><b>👍 رضا العملاء</b>نحرص على رضاك في كل خدمة</div>
-</div></section>
-<section class="cta"><div><b>تحتاج صيانة؟ تواصل معنا الآن</b><br>راسلنا على واتساب وسنرد عليك فورًا</div><a class="wa" href="https://wa.me/201117213292">تواصل واتساب</a></section>
-<h2>آراء العملاء</h2><div class="line"></div>
-<section class="reviews"><div class="review"><div class="stars">★★★★★</div>خدمة ممتازة وسريعة وفني محترم جدًا<br><b>أحمد محمد</b></div><div class="review"><div class="stars">★★★★★</div>صيانة عالية الجودة والسعر مناسب<br><b>ميدو خالد</b></div><div class="review"><div class="stars">★★★★★</div>تجربة رائعة أنصح الجميع بالتعامل معهم<br><b>ياسمين علي</b></div></section>
-</main>
-<footer><div><h3>تواصل معنا</h3>📞 01117213292<br>📍 الشرقيه-ديرب نجم-شارع النصر خلف برج الخميسي بجوار محل السكاكين</div><div><h3>مركز الباشّا ستور</h3>لصيانة الأجهزة المنزلية والإلكترونية<br><br>© 2026</div><div><h3>روابط سريعة</h3><a href="#maintenance">قسم الصيانة</a><br><a href="admin.html">دخول الإدارة</a></div></footer>
-<script>
-const data=JSON.parse(localStorage.getItem('bashaMaintenance')||'[]');
-const box=document.getElementById('maintenance');
-if(!data.length) box.innerHTML='<div class="card" style="grid-column:1/-1"><h3>أعمال الصيانة هتظهر هنا</h3><p>ادخل لوحة الإدارة وأضف صور الأجهزة التي تم إصلاحها.</p></div>';
-else data.forEach(x=>box.innerHTML+=`<article class="card"><img src="${x.image}" alt=""><h3>${esc(x.title)}</h3><p>${esc(x.desc)}</p></article>`);
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-</script>
-</body></html>
+    <header>
+        <h2>مركز الباشّا ستور</h2>
+    </header>
+
+    <section class="hero">
+        <img src="logo.png" alt="شعار مركز الباشّا ستور" onerror="this.src='https://via.placeholder.com/180/d97706/ffffff?text=ELBASHA'">
+        <h1>مركز الباشّا ستور</h1>
+        <p>لصيانة الأجهزة المنزلية والإلكترونية وقص أحدث كروت الصيانة</p>
+        <a href="https://wa.me/201117213292" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> تواصل معنا الآن عبر واتساب</a>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">خدماتنا</h2>
+        <div class="grid">
+            <div class="card"><i class="fas fa-tools"></i><h3>صيانة عامة</h3><p>فحص وإصلاح الأعطال الدقيقة</p></div>
+            <div class="card"><i class="fas fa-home"></i><h3>أجهزة منزلية</h3><p>صيانة شاملة للأجهزة المنزلية</p></div>
+            <div class="card"><i class="fas fa-tv"></i><h3>أجهزة إلكترونية</h3><p>تشخيص وإصلاح الكروت الإلكترونية والدوائر الكهربائية</p></div>
+        </div>
+
+        <h2 class="section-title">أعمال الصيانة الأخيرة</h2>
+        <div class="grid" id="maintenanceGrid">
+            <p style="text-align:center; grid-column: 1/-1; color: var(--text-muted);">جاري تحميل عمليات الصيانة...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>مركز الباشّا ستور © 2026 - جميع الحقوق محفوظة</p>
+        <p><a href="admin.html" style="color: var(--primary); text-decoration: none; margin-top: 10px; display: inline-block;">لوحة الإدارة</a></p>
+    </footer>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AiZaSyCC1odPRZrrrODPuOMU",
+            authDomain: "elbasha-store.firebaseapp.com",
+            projectId: "elbasha-store",
+            storageBucket: "elbasha-store.firebasestorage.app",
+            messagingSenderId: "541467022635",
+            appId: "1:541467022635:web:4a94e1",
+            measurementId: "G-FFFHXMHV6R"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        db.collection("maintenances").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+            const grid = document.getElementById("maintenanceGrid");
+            grid.innerHTML = "";
+            if (snapshot.empty) {
+                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--text-muted);">لا توجد عمليات صيانة مسجلة حالياً.</p>';
+                return;
+            }
+            snapshot.forEach((doc) => {
+                const item = doc.data();
+                const card = document.createElement("div");
+                card.className = "maintenance-card";
+                card.innerHTML = `
+                    <img src="${item.imageUrl || 'https://via.placeholder.com/400x200/1e293b/ffffff?text=صيانة+الباشا'}" alt="${item.title}">
+                    <div class="content">
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                        <div class="date">${item.date || ''}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>

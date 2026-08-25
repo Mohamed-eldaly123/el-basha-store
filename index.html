@@ -12,15 +12,15 @@
 
     <style>
         :root {
-            --bg-dark: #05070f;
-            --panel-bg: rgba(15, 22, 36, 0.65);
+            --bg-dark: #070913;
+            --panel-bg: rgba(18, 25, 41, 0.7);
             --gold: #ffb703;
-            --gold-glow: rgba(255, 183, 3, 0.4);
+            --gold-glow: rgba(255, 183, 3, 0.45);
             --cyan: #00f0ff;
             --cyan-glow: rgba(0, 240, 255, 0.35);
             --wa-green: #25d366;
-            --text-light: #f8fafc;
-            --text-dim: #94a3b8;
+            --text-light: #ffffff;
+            --text-dim: #a0aec0;
         }
 
         * {
@@ -28,7 +28,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', sans-serif;
-            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         body {
@@ -36,137 +36,150 @@
             color: var(--text-light);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 183, 3, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(255, 183, 3, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 60%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
             background-attachment: fixed;
         }
 
-        /* Animated Glowing Header */
+        /* Top Glowing Header */
         header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 16px 8%;
-            background: rgba(5, 7, 15, 0.85);
+            padding: 18px 5%;
+            background: rgba(7, 9, 19, 0.88);
             backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 183, 3, 0.25);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.5);
         }
 
         .brand-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 18px;
+        }
+
+        /* Prominent & Clear Logo Styling */
+        .brand-logo-container {
+            position: relative;
+            width: 85px;
+            height: 85px;
+            border-radius: 20px;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--gold), var(--cyan));
+            box-shadow: 0 0 25px var(--gold-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .brand-logo {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 20px var(--gold-glow);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 16px;
+            background: #0d1322;
+        }
+
+        .brand-title-wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .brand-name {
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 900;
-            background: linear-gradient(135deg, #ffffff 40%, var(--gold));
+            background: linear-gradient(135deg, #ffffff 30%, var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-sub {
+            font-size: 14px;
+            color: var(--cyan);
+            font-weight: 700;
+            margin-top: 2px;
         }
 
         /* Hero Showcase */
         .hero {
             text-align: center;
-            padding: 70px 20px 50px;
-            position: relative;
+            padding: 55px 20px 45px;
         }
 
         .status-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 183, 3, 0.1);
+            background: rgba(255, 183, 3, 0.12);
             color: var(--gold);
-            border: 1px solid var(--gold);
-            padding: 8px 20px;
+            border: 1.5px solid var(--gold);
+            padding: 8px 22px;
             border-radius: 50px;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 24px;
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 22px;
             box-shadow: 0 0 20px var(--gold-glow);
-            animation: pulseGlow 2.5s infinite;
         }
 
         .hero h1 {
-            font-size: 44px;
+            font-size: 40px;
             font-weight: 900;
-            margin-bottom: 18px;
-            letter-spacing: -0.5px;
-            line-height: 1.25;
+            margin-bottom: 16px;
+            line-height: 1.3;
         }
 
         .hero p {
             color: var(--text-dim);
-            font-size: 18px;
-            max-width: 720px;
-            margin: 0 auto 35px;
+            font-size: 17px;
+            max-width: 750px;
+            margin: 0 auto 32px;
             line-height: 1.7;
         }
 
         /* Cyber WhatsApp Button */
-        .wa-action-wrap {
-            display: flex;
-            justify-content: center;
-        }
-
         .wa-cyber-btn {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
-            background: linear-gradient(135deg, #1bd741, #0f8b5f);
+            gap: 12px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
             color: #fff;
-            padding: 18px 40px;
+            padding: 16px 38px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
-            font-size: 20px;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
-            position: relative;
-            overflow: hidden;
+            font-size: 19px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
         }
 
         .wa-cyber-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
-            background: var(--wa-green);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
         }
 
         .wa-cyber-btn i {
-            font-size: 30px;
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .wa-cyber-btn:hover i {
-            transform: rotate(360deg) scale(1.2);
+            font-size: 28px;
         }
 
         /* Container Layout */
         .container {
-            max-width: 1200px;
+            max-width: 1150px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         .section-header {
             text-align: center;
-            margin: 70px 0 40px;
+            margin: 60px 0 35px;
         }
 
         .section-header h2 {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 900;
             position: relative;
             display: inline-block;
@@ -175,112 +188,93 @@
         .section-header h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 25%;
-            width: 50%;
+            bottom: -8px;
+            left: 20%;
+            width: 60%;
             height: 4px;
             background: linear-gradient(90deg, var(--gold), var(--cyan));
             border-radius: 4px;
         }
 
-        /* 3D Glass Interactive Grid */
+        /* Grid Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
         }
 
         .card {
             background: var(--panel-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 32px 24px;
+            border-radius: 22px;
+            padding: 28px 22px;
             text-align: center;
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(14px);
             cursor: pointer;
             position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .card:hover::before {
-            opacity: 1;
         }
 
         .card:hover {
-            transform: translateY(-12px) scale(1.02);
+            transform: translateY(-8px);
             border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--gold-glow);
-        }
-
-        .card:active {
-            transform: translateY(-4px) scale(0.98);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px var(--gold-glow);
         }
 
         .icon-box {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 22px;
-            background: rgba(255, 183, 3, 0.1);
-            border-radius: 22px;
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 18px;
+            background: rgba(255, 183, 3, 0.12);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 183, 3, 0.25);
+            border: 1px solid rgba(255, 183, 3, 0.3);
         }
 
         .card:hover .icon-box {
             background: var(--gold);
-            box-shadow: 0 0 30px var(--gold);
-            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 0 25px var(--gold);
         }
 
         .icon-box i {
-            font-size: 36px;
+            font-size: 34px;
             color: var(--gold);
         }
 
         .card:hover .icon-box i {
-            color: #05070f;
+            color: #070913;
         }
 
         .card h3 {
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .card p {
             color: var(--text-dim);
-            font-size: 15px;
-            line-height: 1.65;
+            font-size: 14.5px;
+            line-height: 1.6;
         }
 
         .card img {
             width: 100%;
-            height: 190px;
+            height: 180px;
             object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 18px;
+            border-radius: 14px;
+            margin-bottom: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Special Click Accent Card */
+        /* Clickable Card Accent */
         .card.clickable-card {
-            border: 1.5px solid var(--cyan);
-            box-shadow: 0 0 15px var(--cyan-glow);
+            border: 2px solid var(--cyan);
+            box-shadow: 0 0 20px var(--cyan-glow);
         }
 
         .card.clickable-card .icon-box {
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 240, 255, 0.12);
             border-color: var(--cyan);
         }
 
@@ -290,7 +284,7 @@
 
         .card.clickable-card:hover {
             border-color: var(--cyan);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 35px var(--cyan-glow);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px var(--cyan-glow);
         }
 
         .card.clickable-card:hover .icon-box {
@@ -299,23 +293,19 @@
 
         /* Footer */
         footer {
-            margin-top: 100px;
-            background: rgba(3, 5, 10, 0.98);
-            padding: 50px 20px;
+            margin-top: 80px;
+            background: rgba(4, 6, 12, 0.95);
+            padding: 40px 20px;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-dim);
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); box-shadow: 0 0 30px var(--gold-glow); }
-        }
-
         @media (max-width: 600px) {
-            .hero h1 { font-size: 28px; }
-            .hero p { font-size: 15px; }
-            .wa-cyber-btn { font-size: 17px; padding: 15px 28px; }
+            .brand-logo-container { width: 68px; height: 68px; }
+            .brand-name { font-size: 22px; }
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 14.5px; }
         }
     </style>
 </head>
@@ -323,25 +313,28 @@
 
     <header>
         <div class="brand-box">
-            <img src="logo.png" alt="الباشا" class="brand-logo" onerror="this.style.display='none'">
-            <div class="brand-name">مركز الباشا</div>
+            <div class="brand-logo-container">
+                <img src="logo.png" alt="لوجو مركز الباشا" class="brand-logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0d1322/ffb703?text=الباشا';">
+            </div>
+            <div class="brand-title-wrap">
+                <div class="brand-name">مركز الباشا</div>
+                <div class="brand-sub">صيانة وإلكترونيات دقيقة</div>
+            </div>
         </div>
     </header>
 
     <section class="hero">
         <div class="status-badge">
             <i class="fa-solid fa-bolt"></i>
-            <span>مركز الصيانة المعتمد والدقيق</span>
+            <span>المركـز المعتمد الأحدث للدقة والصيانة</span>
         </div>
         <h1>صيانة وتطوير الأجهزة المنزلية والشخصية</h1>
         <p>تشخيص دقيق وفحص شامل لجميع الأجهزة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، مكاوي واستشوارات الشعر، الميكروويف، الأفران الكهربائية، الخلاطات، الشفاطات، المراوح، والمكانس)</p>
 
-        <div class="wa-action-wrap">
-            <a href="https://wa.me/201117213292" target="_blank" class="wa-cyber-btn">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>تواصل معنا عبر واتساب فوراً</span>
-            </a>
-        </div>
+        <a href="https://wa.me/201117213292" target="_blank" class="wa-cyber-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>تواصل معنا عبر واتساب فوراً</span>
+        </a>
     </section>
 
     <div class="container">
@@ -354,7 +347,7 @@
                     <i class="fa-solid fa-kitchen-set"></i>
                 </div>
                 <h3>أجهزة المطبخ والطهي</h3>
-                <p>إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الفابريكا.</p>
+                <p>إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الأصلي.</p>
             </div>
             <div class="card">
                 <div class="icon-box">
@@ -376,7 +369,7 @@
                     <i class="fa-solid fa-microchip"></i>
                 </div>
                 <h3>فحص الكروت والدوائر</h3>
-                <p>تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص.</p>
+                <p>تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص القياسية.</p>
             </div>
         </div>
 
@@ -389,20 +382,11 @@
     </div>
 
     <footer>
-        <p style="font-size: 18px; font-weight: 800; color: #fff;">مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
-        <p style="margin-top: 10px;">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
+        <p style="font-size: 17px; font-weight: 800; color: #fff;">مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
+        <p style="margin-top: 8px;">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
     </footer>
 
     <script>
-        // Track mouse position on cards for glow light effect
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-            });
-        });
-
         // Firebase Setup
         const firebaseConfig = {
             apiKey: "AIzaSyDummyKeyForStore-ElBasha123",

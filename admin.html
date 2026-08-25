@@ -9,7 +9,7 @@ body{font-family:Tahoma,Arial;margin:0;background:#f4f4f4;color:#111}.head{backg
 <div class="box" id="panel" style="display:none"><h2>إضافة عملية صيانة</h2><input id="title" placeholder="مثال: إصلاح مروحة تورنيدو"><textarea id="desc" placeholder="اكتب العطل والإصلاح أو أي تفاصيل"></textarea><input id="img" type="file" accept="image/*"><button onclick="add()">إضافة للقسم</button><hr><h2>أعمال الصيانة الحالية</h2><div id="list"></div><button onclick="location.href='index.html'">فتح الموقع</button></div>
 <script>
 let data=JSON.parse(localStorage.getItem('bashaMaintenance')||'[]');
-function login(){if(document.getElementById('pass').value==='1234'){login.style.display='none';document.getElementById('panel').style.display='block';render()}else alert('كلمة المرور غير صحيحة')}
+function login(){if(document.getElementById('pass').value===''){login.style.display='none';document.getElementById('panel').style.display='block';render()}else alert('كلمة المرور غير صحيحة')}
 function add(){let f=document.getElementById('img').files[0];if(!f||!title.value){alert('اكتب اسم الصيانة واختر صورة');return}let r=new FileReader();r.onload=()=>{data.unshift({title:title.value,desc:desc.value,image:r.result});localStorage.setItem('bashaMaintenance',JSON.stringify(data));title.value='';desc.value='';img.value='';render()};r.readAsDataURL(f)}
 function render(){list.innerHTML=data.length?data.map((x,i)=>`<div class="item"><img src="${x.image}"><div style="flex:1"><b>${esc(x.title)}</b><div>${esc(x.desc)}</div></div><button class="danger" onclick="del(${i})">حذف</button></div>`).join(''):'لا توجد صيانات مضافة بعد.'}
 function del(i){if(confirm('حذف هذه الصيانة؟')){data.splice(i,1);localStorage.setItem('bashaMaintenance',JSON.stringify(data));render()}}

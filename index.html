@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز الباشا | صيانة الأجهزة المنزلية والإلكترونية</title>
+    <title id="page-title">مركز الباشا | صيانة الأجهزة المنزلية والإلكترونية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <!-- Firebase SDKs -->
@@ -71,7 +71,7 @@
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* Top Header with Prominent Clear Logo */
+        /* Top Header with Prominent Clear Logo and Language Toggle */
         header {
             display: flex;
             justify-content: space-between;
@@ -94,8 +94,8 @@
 
         .brand-logo-container {
             position: relative;
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             border-radius: 22px;
             padding: 4px;
             background: linear-gradient(135deg, var(--gold), var(--cyan), var(--magenta));
@@ -120,7 +120,7 @@
         }
 
         .brand-name {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 900;
             background: linear-gradient(135deg, #ffffff 20%, var(--gold));
             -webkit-background-clip: text;
@@ -129,13 +129,36 @@
         }
 
         .brand-sub {
-            font-size: 14.5px;
+            font-size: 13.5px;
             color: var(--cyan);
             font-weight: 800;
             letter-spacing: 0.5px;
         }
 
-        /* Moving Dynamic Ticker (الكلمة المتحركة اللي طلبتها) */
+        /* Language Switcher Button */
+        .lang-btn {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1.5px solid var(--cyan);
+            color: var(--cyan);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px var(--cyan-glow);
+        }
+
+        .lang-btn:hover {
+            background: var(--cyan);
+            color: #03050c;
+            box-shadow: 0 0 25px var(--cyan);
+            transform: scale(1.05);
+        }
+
+        /* Moving Dynamic Ticker */
         .ticker-wrap {
             background: linear-gradient(90deg, rgba(255,183,3,0.15), rgba(0,240,255,0.15));
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -383,11 +406,13 @@
         }
 
         @media (max-width: 600px) {
-            .brand-logo-container { width: 72px; height: 72px; }
-            .brand-name { font-size: 23px; }
-            .hero h1 { font-size: 28px; }
-            .hero p { font-size: 15px; }
-            .wa-cyber-btn { font-size: 17px; padding: 15px 30px; }
+            .brand-logo-container { width: 70px; height: 70px; }
+            .brand-name { font-size: 20px; }
+            .brand-sub { font-size: 11px; }
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 14.5px; }
+            .wa-cyber-btn { font-size: 16px; padding: 14px 26px; }
+            .lang-btn { font-size: 13px; padding: 8px 14px; }
         }
     </style>
 </head>
@@ -402,15 +427,21 @@
                 <img src="logo.png" alt="لوجو مركز الباشا" class="brand-logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0a0f1d/ffb703?text=الباشا';">
             </div>
             <div class="brand-title-wrap">
-                <div class="brand-name">مركز الباشا</div>
-                <div class="brand-sub">صيانة وإلكترونيات دقيقة متقدمة</div>
+                <div class="brand-name" id="txt-brand-name">مركز الباشا</div>
+                <div class="brand-sub" id="txt-brand-sub">صيانة وإلكترونيات دقيقة متقدمة</div>
             </div>
         </div>
+
+        <!-- Language Toggle Button -->
+        <button class="lang-btn" onclick="toggleLanguage()">
+            <i class="fa-solid fa-globe"></i>
+            <span id="lang-btn-text">English</span>
+        </button>
     </header>
 
     <!-- Moving Dynamic Ticker -->
     <div class="ticker-wrap">
-        <div class="ticker-move">
+        <div class="ticker-move" id="txt-ticker">
             ⚡ أهلاً بك في مركز الباشا للصيانة المتطورة ⚡ فحص وتشخيص دقيق لجميع الأجهزة المنزلية والشخصية ⚡ ضمان الجودة والسرعة في الإنجاز ⚡ تواصل معنا الآن عبر الواتساب ⚡
         </div>
     </div>
@@ -418,67 +449,158 @@
     <section class="hero">
         <div class="status-badge">
             <i class="fa-solid fa-bolt"></i>
-            <span>المركـز الهندسي المعتمد للرعاية والدقة</span>
+            <span id="txt-badge">المركـز الهندسي المعتمد للرعاية والدقة</span>
         </div>
-        <h1>صيانة وتطوير الأجهزة المنزلية والشخصية</h1>
-        <p>تشخيص دقيق وفحص شامل لجميع الأجهزة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، مكاوي واستشوارات الشعر، الميكروويف، الأفران الكهربائية، الخلاطات، الشفاطات، المراوح، والمكانس)</p>
+        <h1 id="txt-hero-title">صيانة وتطوير الأجهزة المنزلية والشخصية</h1>
+        <p id="txt-hero-desc">تشخيص دقيق وفحص شامل لجميع الأجهزة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، مكاوي واستشوارات الشعر، الميكروويف، الأفران الكهربائية، الخلاطات، الشفاطات، المراوح، والمكانس)</p>
 
         <a href="https://wa.me/201117213292" target="_blank" class="wa-cyber-btn">
             <i class="fa-brands fa-whatsapp"></i>
-            <span>تواصل معنا عبر واتساب فوراً</span>
+            <span id="txt-wa-btn">تواصل معنا عبر واتساب فوراً</span>
         </a>
     </section>
 
     <div class="container">
         <div class="section-header">
-            <h2>أقسام الصيانة والتخصصات</h2>
+            <h2 id="txt-sec-departments">أقسام الصيانة والتخصصات</h2>
         </div>
         <div class="grid">
             <div class="card">
                 <div class="icon-box">
                     <i class="fa-solid fa-kitchen-set"></i>
                 </div>
-                <h3>أجهزة المطبخ والطهي</h3>
-                <p>إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الفابريكا.</p>
+                <h3 id="txt-cat1-title">أجهزة المطبخ والطهي</h3>
+                <p id="txt-cat1-desc">إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الفابريكا.</p>
             </div>
             <div class="card">
                 <div class="icon-box">
                     <i class="fa-solid fa-scissors"></i>
                 </div>
-                <h3>أجهزة العناية الشخصية</h3>
-                <p>صيانة دقيقة لمكائن الحلاقة، مكاوي الشعر، الاستشوار، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).</p>
+                <h3 id="txt-cat2-title">أجهزة العناية الشخصية</h3>
+                <p id="txt-cat2-desc">صيانة دقيقة لمكائن الحلاقة، مكاوي الشعر، الاستشوار، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).</p>
             </div>
             <!-- Clickable Card to Open Fans & Vacuums Page -->
             <div class="card clickable-card" onclick="window.location.href='fans-vacuums.html'">
                 <div class="icon-box">
                     <i class="fa-solid fa-fan"></i>
                 </div>
-                <h3>قسم المراوح والمكانس 👈</h3>
-                <p>اضغط هنا لتصفح المعرض الشامل بالصور لجميع أنواع المراوح (سقف، حائط، عمود، توشيبا، فريش، صيني) والمكانس.</p>
+                <h3 id="txt-cat3-title">قسم المراوح والمكانس 👈</h3>
+                <p id="txt-cat3-desc">اضغط هنا لتصفح المعرض الشامل بالصور لجميع أنواع المراوح (سقف، حائط، عمود، توشيبا، فريش، صيني) والمكانس.</p>
             </div>
             <div class="card">
                 <div class="icon-box">
                     <i class="fa-solid fa-microchip"></i>
                 </div>
-                <h3>فحص الكروت والدوائر</h3>
-                <p>تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص الرقمية.</p>
+                <h3 id="txt-cat4-title">فحص الكروت والدوائر</h3>
+                <p id="txt-cat4-desc">تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص الرقمية.</p>
             </div>
         </div>
 
         <div class="section-header">
-            <h2>سجل أعمال الصيانة الحية</h2>
+            <h2 id="txt-sec-live-logs">سجل أعمال الصيانة الحية</h2>
         </div>
         <div id="maintenance-grid" class="grid">
-            <p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">جاري تحميل أحدث أعمال الصيانة...</p>
+            <p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);" id="txt-loading">جاري تحميل أحدث أعمال الصيانة...</p>
         </div>
     </div>
 
     <footer>
-        <p style="font-size: 18px; font-weight: 900; color: #fff;">مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
-        <p style="margin-top: 8px;">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
+        <p style="font-size: 18px; font-weight: 900; color: #fff;" id="txt-footer-title">مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
+        <p style="margin-top: 8px;" id="txt-footer-sub">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
     </footer>
 
     <script>
+        // Language Dictionary
+        let currentLang = 'ar';
+
+        const i18n = {
+            ar: {
+                pageTitle: "مركز الباشا | صيانة الأجهزة المنزلية والإلكترونية",
+                langBtnText: "English",
+                brandName: "مركز الباشا",
+                brandSub: "صيانة وإلكترونيات دقيقة متقدمة",
+                ticker: "⚡ أهلاً بك في مركز الباشا للصيانة المتطورة ⚡ فحص وتشخيص دقيق لجميع الأجهزة المنزلية والشخصية ⚡ ضمان الجودة والسرعة في الإنجاز ⚡ تواصل معنا الآن عبر الواتساب ⚡",
+                badge: "المركـز الهندسي المعتمد للرعاية والدقة",
+                heroTitle: "صيانة وتطوير الأجهزة المنزلية والشخصية",
+                heroDesc: "تشخيص دقيق وفحص شامل لجميع الأجهزة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، مكاوي واستشوارات الشعر، الميكروويف، الأفران الكهربائية، الخلاطات، الشفاطات، المراوح، والمكانس)",
+                waBtn: "تواصل معنا عبر واتساب فوراً",
+                secDepartments: "أقسام الصيانة والتخصصات",
+                cat1Title: "أجهزة المطبخ والطهي",
+                cat1Desc: "إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الفابريكا.",
+                cat2Title: "أجهزة العناية الشخصية",
+                cat2Desc: "صيانة دقيقة لمكائن الحلاقة، مكاوي الشعر، الاستشوار، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).",
+                cat3Title: "قسم المراوح والمكانس 👈",
+                cat3Desc: "اضغط هنا لتصفح المعرض الشامل بالصور لجميع أنواع المراوح (سقف، حائط، عمود، توشيبا، فريش، صيني) والمكانس.",
+                cat4Title: "فحص الكروت والدوائر",
+                cat4Desc: "تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص الرقمية.",
+                secLiveLogs: "سجل أعمال الصيانة الحية",
+                loading: "جاري تحميل أحدث أعمال الصيانة...",
+                noLogs: "لا توجد أعمال صيانة مسجلة حالياً.",
+                footerTitle: "مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية",
+                footerSub: "ديرب نجم - الشرقية - مصر | 📱 01117213292"
+            },
+            en: {
+                pageTitle: "El-Basha Center | Home & Electronic Appliances Repair",
+                langBtnText: "عربي",
+                brandName: "El-Basha Center",
+                brandSub: "Advanced Electronics & Precision Repair",
+                ticker: "⚡ Welcome to El-Basha Advanced Repair Center ⚡ Accurate Inspection for All Home & Personal Appliances ⚡ Guaranteed Quality & Speed ⚡ Contact Us on WhatsApp ⚡",
+                badge: "Certified Engineering Center for Precision Repair",
+                heroTitle: "Maintenance & Enhancement of Home & Personal Appliances",
+                heroDesc: "Accurate diagnosis and complete inspection for hair clippers, epilators, straighteners, hairdryers, microwaves, electric ovens, blenders, hood fans, fans, and vacuums.",
+                waBtn: "Chat via WhatsApp Immediately",
+                secDepartments: "Maintenance Departments & Specialties",
+                cat1Title: "Kitchen & Cooking Appliances",
+                cat1Desc: "Repair and replacement of original parts for microwaves, electric ovens, blenders, mixers, and range hoods.",
+                cat2Title: "Personal Care Appliances",
+                cat2Desc: "Precision repair for hair clippers, straighteners, hair dryers, and women's epilators (Braun and more).",
+                cat3Title: "Fans & Vacuums Section 👈",
+                cat3Desc: "Click here to browse the full photo catalog for all types of fans (Ceiling, Wall, Stand, Toshiba, Fresh, Chinese) and vacuum cleaners.",
+                cat4Title: "PCB & Circuit Board Diagnostics",
+                cat4Desc: "Diagnosis and repair of electronic circuit boards and power modules using modern digital devices.",
+                secLiveLogs: "Live Maintenance Log",
+                loading: "Loading recent maintenance work...",
+                noLogs: "No maintenance logs registered currently.",
+                footerTitle: "El-Basha Center for Maintenance & Appliance Trading",
+                footerSub: "Dyarb Negm - Sharqia - Egypt | 📱 01117213292"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+            const langData = i18n[currentLang];
+
+            document.getElementById('page-title').innerText = langData.pageTitle;
+            document.getElementById('lang-btn-text').innerText = langData.langBtnText;
+            document.getElementById('txt-brand-name').innerText = langData.brandName;
+            document.getElementById('txt-brand-sub').innerText = langData.brandSub;
+            document.getElementById('txt-ticker').innerText = langData.ticker;
+            document.getElementById('txt-badge').innerText = langData.badge;
+            document.getElementById('txt-hero-title').innerText = langData.heroTitle;
+            document.getElementById('txt-hero-desc').innerText = langData.heroDesc;
+            document.getElementById('txt-wa-btn').innerText = langData.waBtn;
+            document.getElementById('txt-sec-departments').innerText = langData.secDepartments;
+            document.getElementById('txt-cat1-title').innerText = langData.cat1Title;
+            document.getElementById('txt-cat1-desc').innerText = langData.cat1Desc;
+            document.getElementById('txt-cat2-title').innerText = langData.cat2Title;
+            document.getElementById('txt-cat2-desc').innerText = langData.cat2Desc;
+            document.getElementById('txt-cat3-title').innerText = langData.cat3Title;
+            document.getElementById('txt-cat3-desc').innerText = langData.cat3Desc;
+            document.getElementById('txt-cat4-title').innerText = langData.cat4Title;
+            document.getElementById('txt-cat4-desc').innerText = langData.cat4Desc;
+            document.getElementById('txt-sec-live-logs').innerText = langData.secLiveLogs;
+            document.getElementById('txt-footer-title').innerText = langData.footerTitle;
+            document.getElementById('txt-footer-sub').innerText = langData.footerSub;
+
+            const loadingElem = document.getElementById('txt-loading');
+            if (loadingElem) {
+                loadingElem.innerText = langData.loading;
+            }
+        }
+
         // Generate 5D Dynamic Holographic Background Particles
         const holoBg = document.getElementById('holoBg');
         for (let i = 0; i < 25; i++) {
@@ -511,7 +633,7 @@
 
         db.collection('maintenances').onSnapshot((snapshot) => {
             if (snapshot.empty) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">لا توجد أعمال صيانة مسجلة حالياً.</p>';
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">${i18n[currentLang].noLogs}</p>`;
                 return;
             }
             grid.innerHTML = '';
@@ -521,13 +643,13 @@
                 card.className = 'card';
                 card.innerHTML = `
                     ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>'}
-                    <h3>${item.title || 'صيانة جهاز'}</h3>
-                    <p>${item.desc || 'تمت الصيانة بنجاح وإعادة الجهاز للعمل بأعلى كفاءة.'}</p>
+                    <h3>${item.title || (currentLang === 'ar' ? 'صيانة جهاز' : 'Appliance Repair')}</h3>
+                    <p>${item.desc || (currentLang === 'ar' ? 'تمت الصيانة بنجاح وإعادة الجهاز للعمل بأعلى كفاءة.' : 'Repair completed successfully.')}</p>
                 `;
                 grid.appendChild(card);
             });
         }, (error) => {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ff4d4d;">حدث خطأ أثناء تحميل البيانات.</p>';
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ff4d4d;">Error loading data.</p>';
         });
     </script>
 </body>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>لوحة إدارة الباشّا ستور</title>
+<style>
+body{font-family:Tahoma,Arial;margin:0;background:#f4f4f4;color:#111}.head{background:#090909;color:#fff;padding:18px;text-align:center}.box{max-width:850px;margin:25px auto;background:#fff;padding:22px;border-radius:18px;box-shadow:0 5px 20px #0001}input,textarea{width:100%;padding:12px;margin:7px 0 15px;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}button{border:0;background:#f07800;color:#fff;padding:12px 22px;border-radius:10px;font-weight:700;cursor:pointer}.item{display:flex;gap:15px;align-items:center;border-top:1px solid #eee;padding:15px 0}.item img{width:90px;height:70px;object-fit:cover;border-radius:10px}.danger{background:#b00020}.muted{color:#777;font-size:13px}
+</style></head><body>
+<div class="head"><h1>لوحة إدارة مركز الباشّا ستور</h1><div>إضافة وتعديل أعمال قسم الصيانة</div></div>
+<div class="box" id="login"><h2>دخول الإدارة</h2><input id="pass" type="password" placeholder="كلمة المرور"><button onclick="login()">دخول</button><p class="muted">كلمة المرور الافتراضية: 1234 — غيّرها قبل النشر الفعلي.</p></div>
+<div class="box" id="panel" style="display:none"><h2>إضافة عملية صيانة</h2><input id="title" placeholder="مثال: إصلاح مروحة تورنيدو"><textarea id="desc" placeholder="اكتب العطل والإصلاح أو أي تفاصيل"></textarea><input id="img" type="file" accept="image/*"><button onclick="add()">إضافة للقسم</button><hr><h2>أعمال الصيانة الحالية</h2><div id="list"></div><button onclick="location.href='index.html'">فتح الموقع</button></div>
+<script>
+let data=JSON.parse(localStorage.getItem('bashaMaintenance')||'[]');
+function login(){if(document.getElementById('pass').value==='1234'){login.style.display='none';document.getElementById('panel').style.display='block';render()}else alert('كلمة المرور غير صحيحة')}
+function add(){let f=document.getElementById('img').files[0];if(!f||!title.value){alert('اكتب اسم الصيانة واختر صورة');return}let r=new FileReader();r.onload=()=>{data.unshift({title:title.value,desc:desc.value,image:r.result});localStorage.setItem('bashaMaintenance',JSON.stringify(data));title.value='';desc.value='';img.value='';render()};r.readAsDataURL(f)}
+function render(){list.innerHTML=data.length?data.map((x,i)=>`<div class="item"><img src="${x.image}"><div style="flex:1"><b>${esc(x.title)}</b><div>${esc(x.desc)}</div></div><button class="danger" onclick="del(${i})">حذف</button></div>`).join(''):'لا توجد صيانات مضافة بعد.'}
+function del(i){if(confirm('حذف هذه الصيانة؟')){data.splice(i,1);localStorage.setItem('bashaMaintenance',JSON.stringify(data));render()}}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+</script></body></html>

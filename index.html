@@ -1,59 +1,358 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>مركز الباشّا ستور</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#fff;color:#151515}
-a{text-decoration:none;color:inherit}.top{background:#090909;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
-.logo{width:76px;height:76px;object-fit:contain}.hamb{font-size:28px}.cart{font-size:25px}
-.hero{background:linear-gradient(135deg,#090909 45%,#f18400);color:#fff;padding:42px 7%;display:flex;align-items:center;gap:30px;min-height:430px}
-.hero .copy{flex:1}.hero .brand{color:#ff8a00;font-size:34px;font-weight:800}.hero h1{font-size:50px;margin:5px 0}.hero p{font-size:23px;color:#ff9b20}.hero img{width:min(390px,42vw);border-radius:50%;background:#111}
-.btn{display:inline-block;background:#111;color:#fff;border:2px solid #ff8a00;padding:13px 28px;border-radius:28px;font-weight:700}
-.wrap{max-width:1100px;margin:auto;padding:30px 18px}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:-40px;position:relative}
-.feature,.card,.review{background:#fff;border-radius:20px;padding:22px;text-align:center;box-shadow:0 5px 22px #00000012}.feature b{display:block;color:#f07800;margin-bottom:7px;font-size:19px}
-h2{text-align:center;font-size:30px;margin:42px 0 22px}.line{width:55px;height:4px;background:#f07800;margin:-12px auto 25px;border-radius:5px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card img{width:100%;height:160px;object-fit:contain}.card h3{margin:8px 0}
-.dark{background:#0b0b0b;color:#fff;border-radius:22px;padding:25px}.why{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;text-align:center}.why b{color:#ff8a00;display:block}
-.cta{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:18px 25px;border-radius:20px;box-shadow:0 5px 22px #0001;margin:28px 0}.wa{background:#22b85a;color:white;border-radius:25px;padding:12px 25px;font-weight:700}
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.stars{color:#f07800;font-size:22px}
-footer{background:#090909;color:#fff;padding:30px 7%;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}footer h3{color:#ff8a00}
-@media(max-width:750px){.hero{flex-direction:column;text-align:center}.hero h1{font-size:38px}.hero img{width:260px}.features,.grid,.why,.reviews,footer{grid-template-columns:repeat(2,1fr)}.cta{flex-direction:column;gap:15px;text-align:center}}
-@media(max-width:450px){.features,.grid,.why,.reviews,footer{grid-template-columns:1fr}.hero{padding:30px 18px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الباشا | صيانة الأجهزة المنزلية والإلكترونية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(21, 29, 46, 0.7);
+            --accent-gold: #ffb703;
+            --accent-glow: rgba(255, 183, 3, 0.3);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --wa-green: #25d366;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 183, 3, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(37, 211, 102, 0.05) 0%, transparent 40%);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #fff, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero p {
+            color: var(--text-sub);
+            font-size: 17px;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* Interactive Floating WhatsApp Button & Link */
+        .wa-btn-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .wa-morph-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #1bd741, #128c7e);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .wa-morph-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+            background: #25d366;
+        }
+
+        .wa-morph-btn i {
+            font-size: 24px;
+            transition: transform 0.4s ease;
+        }
+
+        .wa-morph-btn:hover i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        /* Sections & Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin: 50px 0 30px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        /* Interactive Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+        }
+
+        .card:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+
+        .card-icon {
+            font-size: 45px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-sub);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            background: rgba(5, 8, 15, 0.95);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-sub);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 15px; }
+        }
+    </style>
 </head>
 <body>
-<header class="top"><div class="hamb">☰</div><img class="logo" src="logo.png"><div class="cart">🛒</div></header>
-<section class="hero"><div class="copy"><div class="brand">مركز</div><h1>الباشّا ستور</h1><p>لصيانة الأجهزة المنزلية والإلكترونية</p><div>خبرة • أمانة • جودة</div><br><a class="btn" href="https://wa.me/201117213292">تواصل معنا الآن عبر واتساب</a></div><img src="logo.png" alt="شعار مركز الباشّا ستور"></section>
-<main class="wrap">
-<section class="features">
-<div class="feature"><b>🛡 الضمان</b>ضمان حقيقي 3 شهور من تاريخ الاستلام</div>
-<div class="feature"><b>⏱ سرعة في التنفيذ</b>استلم جهازك  في أسرع وقت ممكن</div>
-<div class="feature"><b>⚙️ خدمة احترافية</b>فنيين متخصصين</div>
-<div class="feature"><b>🎧 خدمة العملاء</b>متاحين لخدمتك دائمًا علي 01117213292</div>
-</section>
-<h2>خدماتنا</h2><div class="line"></div>
-<section class="grid">
-<div class="card"><div style="font-size:55px">🧰</div><h3>كشف </h3><p>فحص وإصلاح الأعطال</p></div>
-<div class="card"><div style="font-size:55px">🏠</div><h3>أجهزة منزلية</h3><p>خدمات صيانة للأجهزة المنزلية</p></div>
-<div class="card"><div style="font-size:55px">📺</div><h3>أجهزة إلكترونية</h3><p>تشخيص وإصلاح الاجهزه إلاكترونيه</p></div>
-<div class="card"><div style="font-size:55px">🧹</div><h3>نص فارغ</h3><p>تنطططط</p></div>
-</section>
-<h2>قسم الصيانة</h2><div class="line"></div>
-<section id="maintenance" class="grid"></section>
-<section class="dark"><h2 style="color:#fff;margin-top:0">لماذا تختارنا؟</h2><div class="why">
-<div><b>🏷 أسعار مناسبة</b>أفضل الأسعار في السوق</div><div><b>👨‍🔧 فنيين متخصصين</b>خبرة 35 عاما في مجال البورد الالكترونيه</div><div><b>✓ جودة مضمونة</b>قطع غيار أصلية</div><div><b>👍 رضا العملاء</b>نحرص على رضاك طول ما انتا هدفع هنبقا معاك زي الفل</div>
-</div></section>
-<section class="cta"><div><b>عندك حاجه بايظه وعايز تخربها اكتر؟ تواصل الآن</b><br>ابعت لنا دلوقتي علي</div><a class="wa" href="https://wa.me/201117213292">تواصل واتساب</a></section>
-<h2>آراء العملاء</h2><div class="line"></div>
-<section class="reviews"><div class="review"><div class="stars">★★★★★</div>خدمة ممتازة وسريعة وفني محترم جدًا<br><b>أحمد محمد</b></div><div class="review"><div class="stars">★★★★★</div>صيانة عالية الجودة والسعر مناسب<br><b>ميدو خالد</b></div><div class="review"><div class="stars">★★★★★</div>تجربة رائعة أنصح الجميع بالتعامل معهم<br><b>ياسمين علي</b></div></section>
-</main>
-<footer><div><h3>تواصل معنا</h3>📞 01117213292<br>📍 الشرقيه-ديرب نجم-شارع النصر خلف برج الخميسي</div><div><h3>مركز الباشّا ستور</h3>لصيانة الأجهزة المنزلية والإلكترونية<br><br>© 2026</div><div><h3>روابط سريعة</h3><a href="#maintenance">قسم الصيانة</a><br><a href="admin.html">دخول الإدارة</a></div></footer>
-<script>
-const data=JSON.parse(localStorage.getItem('bashaMaintenance')||'[]');
-const box=document.getElementById('maintenance');
-if(!data.length) box.innerHTML='<div class="card" style="grid-column:1/-1"><h3>أعمال الصيانة هتظهر هنا</h3><p>ادخل لوحة الإدارة وأضف صور الأجهزة التي تم إصلاحها.</p></div>';
-else data.forEach(x=>box.innerHTML+=`<article class="card"><img src="${x.image}" alt=""><h3>${esc(x.title)}</h3><p>${esc(x.desc)}</p></article>`);
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-</script>
-</body></html>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="الباشا" class="logo-img" onerror="this.style.display='none'">
+            <div class="brand-title">مركز الباشا</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>متخصصون في صيانة الأجهزة المنزلية والشخصية</h1>
+        <p>صيانة دقيقة وفحص شامل لجميع الأجهزة الصغيرة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، أجهزة الشعر، الميكروويف، الأفران، الخلاطات، المراوح، الشفاطات، والمكانس)</p>
+
+        <div class="wa-btn-container">
+            <a href="https://wa.me/201117213292" target="_blank" class="wa-morph-btn">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>تواصل معنا عبر واتساب</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">أبرز تخصصاتنا</h2>
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-bolt card-icon"></i>
+                <h3>صيانة أجهزة المطبخ</h3>
+                <p>إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، والشفاطات بأعلى دقة.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-scissors card-icon"></i>
+                <h3>أجهزة العناية الشخصية</h3>
+                <p>صيانة احترافية لمكائن الحلاقة، مكاوي واستشوار الشعر، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-fan card-icon"></i>
+                <h3>المراوح والمكانس الكهربائية</h3>
+                <p>صيانة وتغيير ملفات وتصليح جميع أنواع المراوح والمكانس الكهربائية بقطع غيار أصلية.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-screwdriver-wrench card-icon"></i>
+                <h3>فحص وإصلاح البوردات</h3>
+                <p>فحص الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي وإرجاعه يعمل كالجديد.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">أعمال الصيانة الحديثة</h2>
+        <div id="maintenance-grid" class="grid">
+            <p style="grid-column: 1/-1; text-align: center; color: var(--text-sub);">جاري تحميل قائمة الصيانة...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
+        <p style="margin-top: 8px;">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
+    </footer>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDummyKeyForStore-ElBasha123",
+            authDomain: "el-basha-store.firebaseapp.com",
+            projectId: "el-basha-store",
+            storageBucket: "el-basha-store.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef123456"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        const grid = document.getElementById('maintenance-grid');
+
+        db.collection('maintenances').onSnapshot((snapshot) => {
+            if (snapshot.empty) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-sub);">لا توجد أعمال صيانة مسجلة حالياً.</p>';
+                return;
+            }
+            grid.innerHTML = '';
+            snapshot.forEach((doc) => {
+                const item = doc.data();
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<i class="fa-solid fa-microchip card-icon"></i>'}
+                    <h3>${item.title || 'صيانة جهاز'}</h3>
+                    <p>${item.desc || 'تمت الصيانة بنجاح وإعادة الجهاز للعمل بأعلى كفاءة.'}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }, (error) => {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ff4d4d;">حدث خطأ أثناء تحميل البيانات.</p>';
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز الباشا | صيانة الأجهزة المنزلية والإلكترونية</title>
+    <title>مركز البباشا | صيانة الأجهزة المنزلية والإلكترونية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <!-- Firebase SDKs -->
@@ -12,13 +12,13 @@
 
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(21, 29, 46, 0.7);
-            --accent-gold: #ffb703;
-            --accent-glow: rgba(255, 183, 3, 0.3);
-            --text-main: #f8fafc;
+            --bg-main: #07090e;
+            --card-bg: rgba(18, 24, 38, 0.65);
+            --gold-glow: #ffb703;
+            --wa-neon: #25d366;
+            --cyan-glow: #00f0ff;
+            --text-main: #ffffff;
             --text-sub: #94a3b8;
-            --wa-green: #25d366;
         }
 
         * {
@@ -26,295 +26,349 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-main);
             color: var(--text-main);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 183, 3, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(37, 211, 102, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 15% 15%, rgba(255, 183, 3, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
         }
 
-        /* Header */
+        /* Top Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 8%;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(12px);
+            padding: 16px 8%;
+            background: rgba(7, 9, 14, 0.75);
+            backdrop-filter: blur(16px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 183, 3, 0.15);
         }
 
-        .logo-container {
+        .logo-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .logo-img {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
-            object-fit: cover;
-            border: 2px solid var(--accent-gold);
-            box-shadow: 0 0 15px var(--accent-glow);
+            border: 2px solid var(--gold-glow);
+            box-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
         }
 
         .brand-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 900;
-            background: linear-gradient(45deg, #fff, var(--accent-gold));
+            background: linear-gradient(135deg, #fff 30%, var(--gold-glow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
         }
 
-        /* Hero Section */
+        /* Ultra Hero Section */
         .hero {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 70px 20px 40px;
             position: relative;
         }
 
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 183, 3, 0.1);
+            color: var(--gold-glow);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(255, 183, 3, 0.2);
+            animation: pulseBadge 2s infinite ease-in-out;
+        }
+
         .hero h1 {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 900;
-            margin-bottom: 15px;
-            animation: fadeInDown 0.8s ease;
+            margin-bottom: 18px;
+            line-height: 1.2;
         }
 
         .hero p {
             color: var(--text-sub);
-            font-size: 17px;
-            max-width: 650px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 35px;
+            line-height: 1.7;
         }
 
-        /* Interactive Floating WhatsApp Button & Link */
-        .wa-btn-container {
-            display: inline-flex;
+        /* Cyber WhatsApp Morph Button */
+        .wa-wrapper {
+            display: flex;
             justify-content: center;
-            align-items: center;
             margin-top: 10px;
         }
 
-        .wa-morph-btn {
+        .wa-cyber-btn {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #1bd741, #128c7e);
+            gap: 14px;
+            background: rgba(37, 211, 102, 0.12);
+            border: 2px solid var(--wa-neon);
             color: #fff;
-            padding: 14px 28px;
+            padding: 16px 36px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 18px;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-            position: relative;
+            font-weight: 900;
+            font-size: 19px;
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.25);
             overflow: hidden;
             cursor: pointer;
         }
 
-        .wa-morph-btn:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
-            background: #25d366;
+        .wa-cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.4), transparent);
+            transition: 0.6s;
         }
 
-        .wa-morph-btn i {
-            font-size: 24px;
-            transition: transform 0.4s ease;
+        .wa-cyber-btn:hover::before {
+            left: 100%;
         }
 
-        .wa-morph-btn:hover i {
-            transform: rotate(360deg) scale(1.2);
+        .wa-cyber-btn:hover {
+            background: var(--wa-neon);
+            color: #000;
+            box-shadow: 0 0 45px rgba(37, 211, 102, 0.8);
+            transform: translateY(-5px) scale(1.06);
         }
 
-        /* Sections & Layout */
+        .wa-cyber-btn i {
+            font-size: 28px;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .wa-cyber-btn:hover i {
+            transform: rotate(360deg) scale(1.3);
+        }
+
+        /* Layout Grid */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
-            font-size: 28px;
-            margin: 50px 0 30px;
+            margin: 60px 0 40px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
             position: relative;
             display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
-        .section-title::after {
+        .section-header h2::after {
             content: '';
             position: absolute;
-            bottom: -8px;
-            left: 20%;
-            width: 60%;
-            height: 3px;
-            background: var(--accent-gold);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--accent-gold);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-glow), var(--cyan-glow));
+            border-radius: 4px;
         }
 
-        /* Interactive Cards Grid */
+        /* Ultra Interactive Cards Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 28px;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: 24px;
+            padding: 30px 24px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-gold);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+            border-color: var(--gold-glow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 183, 3, 0.25);
+            transform: translateY(-12px) rotateX(4deg) rotateY(-2deg);
         }
 
         .card:active {
-            transform: translateY(-4px) scale(0.98);
+            transform: translateY(-2px) scale(0.97);
         }
 
-        .card-icon {
-            font-size: 45px;
-            color: var(--accent-gold);
-            margin-bottom: 15px;
-            display: inline-block;
-            transition: transform 0.3s ease;
+        .card-icon-wrapper {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+            background: rgba(255, 183, 3, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 183, 3, 0.2);
+            transition: all 0.4s ease;
         }
 
-        .card:hover .card-icon {
-            transform: scale(1.2) rotate(5deg);
+        .card:hover .card-icon-wrapper {
+            background: var(--gold-glow);
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 0 25px var(--gold-glow);
+        }
+
+        .card-icon-wrapper i {
+            font-size: 34px;
+            color: var(--gold-glow);
+            transition: color 0.4s ease;
+        }
+
+        .card:hover .card-icon-wrapper i {
+            color: #000;
         }
 
         .card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 21px;
+            font-weight: 800;
+            margin-bottom: 12px;
         }
 
         .card p {
             color: var(--text-sub);
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
         }
 
         .card img {
             width: 100%;
-            height: 180px;
+            height: 190px;
             object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         /* Footer */
         footer {
-            margin-top: 80px;
-            background: rgba(5, 8, 15, 0.95);
-            padding: 40px 20px;
+            margin-top: 90px;
+            background: rgba(4, 6, 10, 0.98);
+            padding: 45px 20px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-sub);
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 25px var(--gold-glow); }
         }
 
         @media (max-width: 600px) {
-            .hero h1 { font-size: 26px; }
+            .hero h1 { font-size: 30px; }
             .hero p { font-size: 15px; }
+            .wa-cyber-btn { font-size: 16px; padding: 14px 24px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
+        <div class="logo-box">
             <img src="logo.png" alt="الباشا" class="logo-img" onerror="this.style.display='none'">
             <div class="brand-title">مركز الباشا</div>
         </div>
     </header>
 
     <section class="hero">
-        <h1>متخصصون في صيانة الأجهزة المنزلية والشخصية</h1>
-        <p>صيانة دقيقة وفحص شامل لجميع الأجهزة الصغيرة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، أجهزة الشعر، الميكروويف، الأفران، الخلاطات، المراوح، الشفاطات، والمكانس)</p>
+        <div class="hero-badge">⚡ مركز الصيانة المعتمد الأول</div>
+        <h1>صيانة وتطوير الأجهزة المنزلية والشخصية</h1>
+        <p>متخصصون في صيانة أجهزة المطبخ، العناية الشخصية، والمكانس والمراوح بأعلى دقة احترافية وسرعة في التسليم.</p>
 
-        <div class="wa-btn-container">
-            <a href="https://wa.me/201117213292" target="_blank" class="wa-morph-btn">
+        <div class="wa-wrapper">
+            <a href="https://wa.me/201117213292" target="_blank" class="wa-cyber-btn">
                 <i class="fa-brands fa-whatsapp"></i>
-                <span>تواصل معنا عبر واتساب</span>
+                <span>تحدث معنا عبر الواتساب مباشرة</span>
             </a>
         </div>
     </section>
 
     <div class="container">
-        <h2 class="section-title">أبرز تخصصاتنا</h2>
+        <div class="section-header">
+            <h2>تخصصاتنا الرئيسية</h2>
+        </div>
         <div class="grid">
             <div class="card">
-                <i class="fa-solid fa-bolt card-icon"></i>
-                <h3>صيانة أجهزة المطبخ</h3>
-                <p>إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، والشفاطات بأعلى دقة.</p>
+                <div class="card-icon-wrapper">
+                    <i class="fa-solid fa-fire-burner"></i>
+                </div>
+                <h3>أجهزة المطبخ والطهي</h3>
+                <p>صيانة الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة فابريكا.</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-scissors card-icon"></i>
-                <h3>أجهزة العناية الشخصية</h3>
-                <p>صيانة احترافية لمكائن الحلاقة، مكاوي واستشوار الشعر، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).</p>
+                <div class="card-icon-wrapper">
+                    <i class="fa-solid fa-scissors"></i>
+                </div>
+                <h3>العناية الشخصية</h3>
+                <p>إصلاح مكائن الحلاقة، مكاوي واستشوارات الشعر، ومكائن إزالة الشعر الحريمي (براون وأخواتها).</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-fan card-icon"></i>
-                <h3>المراوح والمكانس الكهربائية</h3>
-                <p>صيانة وتغيير ملفات وتصليح جميع أنواع المراوح والمكانس الكهربائية بقطع غيار أصلية.</p>
+                <div class="card-icon-wrapper">
+                    <i class="fa-solid fa-wind"></i>
+                </div>
+                <h3>المراوح والمكانس</h3>
+                <p>إعادة لف وتصليح جميع أنواع المراوح والمكانس الكهربائية وتغيير المحركات والقطع فوراً.</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-screwdriver-wrench card-icon"></i>
-                <h3>فحص وإصلاح البوردات</h3>
-                <p>فحص الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي وإرجاعه يعمل كالجديد.</p>
+                <div class="card-icon-wrapper">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h3>صيانة البوردات والدوائر</h3>
+                <p>فحص وتصليح كروت الكهرباء والدوائر الإلكترونية الدقيقة لأي جهاز بدقة عالية.</p>
             </div>
         </div>
 
-        <h2 class="section-title">أعمال الصيانة الحديثة</h2>
+        <div class="section-header">
+            <h2>سجل عمليات الصيانة الحية</h2>
+        </div>
         <div id="maintenance-grid" class="grid">
-            <p style="grid-column: 1/-1; text-align: center; color: var(--text-sub);">جاري تحميل قائمة الصيانة...</p>
+            <p style="grid-column: 1/-1; text-align: center; color: var(--text-sub);">جاري جلب أحدث أعمال الصيانة...</p>
         </div>
     </div>
 
     <footer>
-        <p>مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
-        <p style="margin-top: 8px;">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
+        <p style="font-size: 17px; font-weight: 700; color: #fff;">مركز الباشا لصيانة الأجهزة المنزلية والإلكترونية</p>
+        <p style="margin-top: 10px;">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
     </footer>
 
     <script>
@@ -344,7 +398,7 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<i class="fa-solid fa-microchip card-icon"></i>'}
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div class="card-icon-wrapper"><i class="fa-solid fa-screwdriver-wrench"></i></div>'}
                     <h3>${item.title || 'صيانة جهاز'}</h3>
                     <p>${item.desc || 'تمت الصيانة بنجاح وإعادة الجهاز للعمل بأعلى كفاءة.'}</p>
                 `;

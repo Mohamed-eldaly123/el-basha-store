@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ù„ÙˆØ­Ø© Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© | Ù…Ø±ÙƒØ² Ø§Ù„Ø¨Ø§Ø´Ù‘Ø§ Ø³ØªÙˆØ±</title>
+    <title>لوحة الإدارة | مركز الباشّا ستور</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -33,37 +33,37 @@
 </head>
 <body>
     <div class="container">
-        <h2>Ù„ÙˆØ­Ø© Ø¥Ø¯Ø§Ø±Ø© Ù…Ø±ÙƒØ² Ø§Ù„Ø¨Ø§Ø´Ù‘Ø§ Ø³ØªÙˆØ±</h2>
+        <h2>لوحة إدارة مركز الباشّا ستور</h2>
 
         <!-- Login Section -->
         <div id="loginBox" class="login-box">
             <div class="form-group">
-                <label>ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± Ù„Ù„Ø¥Ø¯Ø§Ø±Ø©:</label>
-                <input type="password" id="passInput" placeholder="Ø£Ø¯Ø®Ù„ ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±">
+                <label>كلمة المرور للإدارة:</label>
+                <input type="password" id="passInput" placeholder="حط الباسورد يا بشمهندس">
             </div>
-            <button onclick="checkPass()">Ø¯Ø®ÙˆÙ„</button>
-            <p id="errorMsg" style="color: #ef4444; text-align: center; margin-top: 10px; display: none;">ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± ØºÙŠØ± ØµØ­ÙŠØ­Ø©!</p>
+            <button onclick="checkPass()">تأكيد كلمة المرور </button>
+            <p id="errorMsg" style="color: #ef4444; text-align: center; margin-top: 10px; display: none;">كلمة المرور غير صحيحة!</p>
         </div>
 
         <!-- Admin Controls Section -->
         <div id="adminContent" class="admin-content">
-            <h3>Ø¥Ø¶Ø§ÙØ© ØµÙŠØ§Ù†Ø© Ø¬Ø¯ÙŠØ¯Ø©</h3>
+            <h3>إضافة جهاز جديد لقسم الصيانه</h3>
             <div class="form-group">
-                <label>Ø¹Ù†ÙˆØ§Ù† Ø§Ù„Ø¬Ù‡Ø§Ø² / Ø§Ù„ØµÙŠØ§Ù†Ø©:</label>
-                <input type="text" id="titleInput" placeholder="Ù…Ø«Ø§Ù„: ØµÙŠØ§Ù†Ø© ÙƒØ§Ø±ØªØ© Ø´Ø§Ø´Ø© / Ù…ÙƒÙ†Ø³Ø©">
+                <label>اسم الجهاز / الصيانة:</label>
+                <input type="text" id="titleInput" placeholder="مثال: صيانة شاشة / مكنسة">
             </div>
             <div class="form-group">
-                <label>ÙˆØµÙ Ø§Ù„Ø¥ØµÙ„Ø§Ø­ ÙˆØ§Ù„Ø¹Ø·Ù„:</label>
-                <textarea id="descInput" rows="3" placeholder="ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø¹Ø·Ù„ ÙˆÙ…Ø§ ØªÙ… ØªØºÙŠÙŠØ±Ù‡..."></textarea>
+                <label>وصف الإصلاح والعطل:</label>
+                <textarea id="descInput" rows="3" placeholder="تفاصيل العطل وما تم تغييره..."></textarea>
             </div>
             <div class="form-group">
-                <label>Ø±Ø§Ø¨Ø· ØµÙˆØ±Ø© Ø§Ù„Ø¬Ù‡Ø§Ø² (Ø§Ø®ØªÙŠØ§Ø±ÙŠ):</label>
-                <input type="text" id="imageInput" placeholder="Ø¶Ø¹ Ø±Ø§Ø¨Ø· Ø§Ù„ØµÙˆØ±Ø© Ø£Ùˆ Ø§ØªØ±ÙƒÙ‡Ø§ ÙØ§Ø±ØºØ©">
+                <label>رفع صورة الجهاز (اختياري):</label>
+                <input type="text" id="imageInput" placeholder="ضع رابط الصورة أو اتركها فارغة">
             </div>
-            <button onclick="addMaintenance()">Ø­ÙØ¸ ÙˆÙ†Ø´Ø± Ù„Ù„ØµÙŠØ§Ù†Ø©</button>
+            <button onclick="addMaintenance()">حفظ ونشر للصيانة</button>
 
             <div class="item-list">
-                <h3>Ø§Ù„ØµÙŠØ§Ù†Ø§Øª Ø§Ù„Ø­Ø§Ù„ÙŠØ©:</h3>
+                <h3>الصيانات الحالية:</h3>
                 <div id="itemsContainer"></div>
             </div>
         </div>
@@ -84,7 +84,7 @@
 
         function checkPass() {
             const pass = document.getElementById("passInput").value;
-            if(pass === "123456" || pass === "admin") { // ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠØ©
+            if(pass === "123" || pass === "admin") { // كلمة المرور الافتراضية
                 document.getElementById("loginBox").style.display = "none";
                 document.getElementById("adminContent").style.display = "block";
                 loadItems();
@@ -99,7 +99,7 @@
             const imageUrl = document.getElementById("imageInput").value;
 
             if(!title || !desc) {
-                alert("ÙŠØ±Ø¬Ù‰ ÙƒØªØ§Ø¨Ø© Ø§Ù„Ø¹Ù†ÙˆØ§Ù† ÙˆØ§Ù„ÙˆØµÙ");
+                alert("اسم الجهاز");
                 return;
             }
 
@@ -110,12 +110,12 @@
                 date: new Date().toLocaleDateString('ar-EG'),
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                alert("ØªÙ…Øª Ø¥Ø¶Ø§ÙØ© Ø§Ù„ØµÙŠØ§Ù†Ø© Ø¨Ù†Ø¬Ø§Ø­!");
+                alert("تمت إضافة الجهاز بنجاح!");
                 document.getElementById("titleInput").value = "";
                 document.getElementById("descInput").value = "";
                 document.getElementById("imageInput").value = "";
             }).catch(err => {
-                alert("Ø­Ø¯Ø« Ø®Ø·Ø£: " + err.message);
+                alert("حدث خطأ: " + err.message);
             });
         }
 
@@ -132,7 +132,7 @@
                             <strong>${item.title}</strong>
                             <br><small>${item.description}</small>
                         </div>
-                        <button class="btn-delete" onclick="deleteItem('${doc.id}')">Ø­Ø°Ù</button>
+                        <button class="btn-delete" onclick="deleteItem('${doc.id}')">حذف</button>
                     `;
                     container.appendChild(div);
                 });
@@ -140,7 +140,7 @@
         }
 
         function deleteItem(id) {
-            if(confirm("Ù‡Ù„ Ø£Ù†Øª ØªØ£ÙƒØ¯ Ù…Ù† Ø­Ø°Ù Ù‡Ø°Ù‡ Ø§Ù„ØµÙŠØ§Ù†Ø©ØŸ")) {
+            if(confirm("هل أنت تأكد من حذف هذا الجهاز؟")) {
                 db.collection("maintenances").doc(id).delete();
             }
         }

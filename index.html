@@ -4,12 +4,361 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Tajawal -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #020612;
+            --panel-bg: rgba(10, 16, 32, 0.85);
+            --blue-neon: #00d2ff;
+            --blue-glow: rgba(0, 210, 255, 0.5);
+            --purple-neon: #9d00ff;
+            --purple-glow: rgba(157, 0, 255, 0.5);
+            --gold: #ffb703;
+            --text-light: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(157, 0, 255, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 183, 3, 0.06) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        /* Particles Background */
+        .holo-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--blue-neon);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatParticle 8s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 6%;
+            background: rgba(2, 6, 18, 0.94);
+            backdrop-filter: blur(25px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1.5px solid rgba(0, 210, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--blue-neon), var(--purple-neon), var(--gold));
+            box-shadow: 0 0 20px var(--blue-glow);
+            animation: logoPulse 3s infinite alternate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes logoPulse {
+            0% { box-shadow: 0 0 15px var(--blue-glow); transform: scale(1); }
+            100% { box-shadow: 0 0 30px var(--purple-glow), 0 0 15px var(--blue-neon); transform: scale(1.03); }
+        }
+
+        .brand-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #060b1e;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 30%, var(--blue-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-sub {
+            font-size: 13px;
+            color: var(--purple-neon);
+            font-weight: 800;
+        }
+
+        .brand-manager {
+            font-size: 12px;
+            color: var(--gold);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* Language Switcher Button */
+        .lang-btn {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1.5px solid var(--blue-neon);
+            color: var(--blue-neon);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn:hover {
+            background: var(--blue-neon);
+            color: #020612;
+            box-shadow: 0 0 20px var(--blue-neon);
+            transform: scale(1.05);
+        }
+
+        /* Ticker */
+        .ticker-wrap {
+            background: linear-gradient(90deg, rgba(0,210,255,0.15), rgba(157,0,255,0.15));
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-move {
+            display: inline-block;
+            animation: tickerMove 25s linear infinite;
+            font-weight: 900;
+            font-size: 15px;
+            color: var(--blue-neon);
+        }
+
+        @keyframes tickerMove {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 35px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--blue-neon);
+            border: 1.5px solid var(--blue-neon);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px var(--blue-glow);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 40%, var(--blue-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: 17px;
+            max-width: 750px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .wa-cyber-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25d366, #0f8b5f);
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .wa-cyber-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.7);
+        }
+
+        .wa-cyber-btn i {
+            font-size: 24px;
+        }
+
+        /* Container & Cards */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 60px 0 35px;
+        }
+
+        .section-header h2 {
+            font-size: 30px;
+            font-weight: 900;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue-neon), var(--purple-neon));
+            border-radius: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--panel-bg);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 28px 20px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--blue-neon);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px var(--blue-glow);
+        }
+
+        .icon-box {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 18px;
+            background: rgba(0, 210, 255, 0.12);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .card:hover .icon-box {
+            background: var(--blue-neon);
+        }
+
+        .icon-box i {
+            font-size: 34px;
+            color: var(--blue-neon);
+        }
+
+        .card:hover .icon-box i {
+            color: #020612;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            background: rgba(1, 3, 8, 0.98);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 600px) {
+            .brand-logo-container { width: 65px; height: 65px; }
+            .brand-name { font-size: 19px; }
+            .brand-sub { font-size: 11px; }
+            .hero h1 { font-size: 24px; }
+            .hero p { font-size: 14px; }
+            .wa-cyber-btn { font-size: 15px; padding: 12px 24px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +367,7 @@
     <header>
         <div class="brand-box">
             <div class="brand-logo-container">
-                <img src="التقاط.PNG" alt="لوجو مركز المهندس" class="brand-logo" onerror="this.onerror=null; this.src='logo.png';">
+                <img src="التقاط.PNG" alt="لوجو مركز المهندس لصيانة الشاشات" class="brand-logo" onerror="this.onerror=null; this.src='logo.png';">
             </div>
             <div class="brand-title-wrap">
                 <div class="brand-name" id="txt-brand-name">مركز المهندس للإلكترونيات</div>
@@ -79,6 +428,13 @@
                 <p id="txt-cat4-desc">حل مشاكل تعليق الشاشة على اللوجو، مشاكل الواي فاي، وتحديث الأنظمة لجميع الماركات العالمية والمحلية.</p>
             </div>
         </div>
+
+        <div class="section-header">
+            <h2 id="txt-sec-live-logs">سجل صيانة الشاشات الحية</h2>
+        </div>
+        <div id="maintenance-grid" class="grid">
+            <p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);" id="txt-loading">جاري تحميل أحدث صيانة الشاشات...</p>
+        </div>
     </div>
 
     <footer>
@@ -88,9 +444,99 @@
     </footer>
 
     <script>
-        // Language Switcher & Particle Logic
+        // Language System
+        let currentLang = 'ar';
+        const i18n = {
+            ar: {
+                pageTitle: "مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات",
+                langBtnText: "English",
+                brandName: "مركز المهندس للإلكترونيات",
+                brandSub: "صيانة جميع أنواع الشاشات",
+                brandManager: "إدارة م. محمد التهامي",
+                ticker: "📺 أهلاً بك في مركز المهندس للإلكترونيات - إدارة م. محمد التهامي 📺 صيانة وتغيير مساطر الليد والبانل لجميع الشاشات 📺 صيانة كروت الباور والماين شاشة 📺 قطع غيار أصلية وضمان معتمد 📺 تواصل معنا الآن عبر الواتساب 📺",
+                badge: "المركز المتخصص والمطوّر لصيانة الشاشات",
+                heroTitle: "صيانة وحلول أعطال جميع أنواع الشاشات والتلفزيونات",
+                heroDesc: "تشخيص دقيق وفحص بالكمبيوتر لجميع الشاشات (LED, LCD, OLED, QLED, Smart TV, Curved, Monitors). تغيير مساطر الإضاءة (LED Strips)، صيانة البانل والخطوط، إصلاح كروت الباور والماين، وشحن الفلاشات بأحدث الأجهزة.",
+                waBtn: "تواصل معنا عبر واتساب فوراً",
+                secDepartments: "خدمات وصيانة الشاشات المتخصصة",
+                cat1Title: "تغيير مساطر الإضاءة (LED)",
+                cat1Desc: "حل مشكلة الصوت الشغال بدون صورة وتغير الإضاءة. نستخدم مساطر أصلية بضمان حقيقي وأعلى كفاءة إضاءة.",
+                cat2Title: "صيانة وإصلاح البانل (Panel)",
+                cat2Desc: "معالجة الخطوط العمودية والأفقية والصورة المزدوجة وضبابية الشاشة بأجهزة ماكينات كوف متطورة.",
+                cat3Title: "كروت الماين والباور",
+                cat3Desc: "إصلاح أعطال عدم القومة (اللمبة الحمراء)، شحن الفلاشات والسوفت وير، وتصليح كروت التغذية والباور.",
+                cat4Title: "الشاشات الذكية (Smart TV)",
+                cat4Desc: "حل مشاكل تعليق الشاشة على اللوجو، مشاكل الواي فاي، وتحديث الأنظمة لجميع الماركات العالمية والمحلية.",
+                secLiveLogs: "سجل صيانة الشاشات الحية",
+                loading: "جاري تحميل أحدث صيانة الشاشات...",
+                noLogs: "لا توجد أعمال صيانة شاشات مسجلة حالياً.",
+                footerTitle: "مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات",
+                footerManager: "إدارة م. محمد التهامي",
+                footerSub: "ديرب نجم - الشرقية - مصر | 📱 01122056127"
+            },
+            en: {
+                pageTitle: "El-Mohandes Electronics | All TV & Screen Repair Center",
+                langBtnText: "عربي",
+                brandName: "El-Mohandes Electronics",
+                brandSub: "All TV & Screen Repair Center",
+                brandManager: "Managed by Eng. Mohamed El-Tohamy",
+                ticker: "📺 Welcome to El-Mohandes Electronics - Managed by Eng. Mohamed El-Tohamy 📺 LED Strips & Panel Repair for All Screens 📺 Power & Main Board Maintenance 📺 Genuine Spare Parts & Warranty 📺 Contact Us on WhatsApp 📺",
+                badge: "Certified Engineering Center for Screen Repairs",
+                heroTitle: "Complete Maintenance & Repair for All Screens & TVs",
+                heroDesc: "Precision diagnosis for LED, LCD, OLED, QLED, Smart TV, Curved screens, and Monitors. LED backlight replacement, panel repair, main & power board fix, and EEPROM flashing.",
+                waBtn: "Chat via WhatsApp Immediately",
+                secDepartments: "Specialized Screen Repair Services",
+                cat1Title: "LED Backlight Replacement",
+                cat1Desc: "Fixing sound with no image display. We use high-grade original LED strips with full warranty.",
+                cat2Title: "Panel & Display Repair",
+                cat2Desc: "Fixing vertical/horizontal lines, double image, and screen flicker using modern bonding tech.",
+                cat3Title: "Main Board & Power Board",
+                cat3Desc: "Fixing standby mode issues (red light), software flashing, motherboard and power supply repairs.",
+                cat4Title: "Smart TV System Solutions",
+                cat4Desc: "Fixing stuck logo issues, Wi-Fi connectivity problems, and firmware updates for all TV brands.",
+                secLiveLogs: "Live Screen Repair Logs",
+                loading: "Loading recent screen repair logs...",
+                noLogs: "No screen repair logs registered currently.",
+                footerTitle: "El-Mohandes Electronics | Screen Repair Center",
+                footerManager: "Managed by Eng. Mohamed El-Tohamy",
+                footerSub: "Dyarb Negm - Sharqia - Egypt | 📱 01122056127"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+            const langData = i18n[currentLang];
+            document.getElementById('page-title').innerText = langData.pageTitle;
+            document.getElementById('lang-btn-text').innerText = langData.langBtnText;
+            document.getElementById('txt-brand-name').innerText = langData.brandName;
+            document.getElementById('txt-brand-sub').innerText = langData.brandSub;
+            document.getElementById('txt-brand-manager').innerText = langData.brandManager;
+            document.getElementById('txt-ticker').innerText = langData.ticker;
+            document.getElementById('txt-badge').innerText = langData.badge;
+            document.getElementById('txt-hero-title').innerText = langData.heroTitle;
+            document.getElementById('txt-hero-desc').innerText = langData.heroDesc;
+            document.getElementById('txt-wa-btn').innerText = langData.waBtn;
+            document.getElementById('txt-sec-departments').innerText = langData.secDepartments;
+            document.getElementById('txt-cat1-title').innerText = langData.cat1Title;
+            document.getElementById('txt-cat1-desc').innerText = langData.cat1Desc;
+            document.getElementById('txt-cat2-title').innerText = langData.cat2Title;
+            document.getElementById('txt-cat2-desc').innerText = langData.cat2Desc;
+            document.getElementById('txt-cat3-title').innerText = langData.cat3Title;
+            document.getElementById('txt-cat3-desc').innerText = langData.cat3Desc;
+            document.getElementById('txt-cat4-title').innerText = langData.cat4Title;
+            document.getElementById('txt-cat4-desc').innerText = langData.cat4Desc;
+            document.getElementById('txt-sec-live-logs').innerText = langData.secLiveLogs;
+            document.getElementById('txt-footer-title').innerText = langData.footerTitle;
+            document.getElementById('txt-footer-manager').innerText = langData.footerManager;
+            document.getElementById('txt-footer-sub').innerText = langData.footerSub;
+        }
+
+        // Particle generator
         const holoBg = document.getElementById('holoBg');
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 20; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
             const size = Math.random() * 5 + 2;
@@ -100,6 +546,42 @@
             p.style.animationDuration = `${Math.random() * 6 + 4}s`;
             holoBg.appendChild(p);
         }
+
+        // Firebase Setup & Realtime Fetch
+        const firebaseConfig = {
+            apiKey: "AIzaSyDummyKeyForStore-ElMohandes123",
+            authDomain: "el-mohandes-screens.firebaseapp.com",
+            projectId: "el-mohandes-screens",
+            storageBucket: "el-mohandes-screens.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef123456"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+        const grid = document.getElementById('maintenance-grid');
+
+        db.collection('maintenances').onSnapshot((snapshot) => {
+            if (snapshot.empty) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">${i18n[currentLang].noLogs}</p>`;
+                return;
+            }
+            grid.innerHTML = '';
+            snapshot.forEach((doc) => {
+                const item = doc.data();
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div class="icon-box"><i class="fa-solid fa-tv"></i></div>'}
+                    <h3>${item.title || (currentLang === 'ar' ? 'صيانة شاشة' : 'TV Screen Repair')}</h3>
+                    <p>${item.desc || (currentLang === 'ar' ? 'تم إصلاح الشاشة بنجاح واختبار جودة الإضاءة والألوان.' : 'Screen repaired successfully with quality check.')}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }, () => {
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">${i18n[currentLang].noLogs}</p>`;
+        });
     </script>
 </body>
 </html>

@@ -3,458 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">مركز الباشا Store | لصيانة الأجهزة المنزلية والإلكترونية</title>
+    <title id="page-title">مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <!-- Firebase SDKs -->
+    <link rel="stylesheet" href="style.css">
+    
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-    <style>
-        :root {
-            --bg-dark: #03050c;
-            --panel-bg: rgba(13, 19, 33, 0.75);
-            --gold: #ffb703;
-            --gold-glow: rgba(255, 183, 3, 0.6);
-            --cyan: #00f0ff;
-            --cyan-glow: rgba(0, 240, 255, 0.5);
-            --magenta: #ff007f;
-            --text-light: #ffffff;
-            --text-dim: #94a3b8;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 10%, rgba(255, 183, 3, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.08) 0%, transparent 60%);
-            background-attachment: fixed;
-            animation: bgShift 15s ease infinite alternate;
-        }
-
-        @keyframes bgShift {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(25deg); }
-        }
-
-        /* 5D Floating Holographic Particles Background Effect */
-        .holo-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--cyan);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: floatParticle 8s infinite linear;
-        }
-
-        @keyframes floatParticle {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        /* Top Header with Prominent Clear Logo and Language Toggle */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 6%;
-            background: rgba(3, 5, 12, 0.9);
-            backdrop-filter: blur(25px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1.5px solid rgba(255, 183, 3, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .brand-box {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .brand-logo-container {
-            position: relative;
-            width: 85px;
-            height: 85px;
-            border-radius: 22px;
-            padding: 4px;
-            background: linear-gradient(135deg, var(--gold), var(--cyan), var(--magenta));
-            box-shadow: 0 0 30px var(--gold-glow);
-            animation: logoPulse 3s infinite alternate;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes logoPulse {
-            0% { box-shadow: 0 0 15px var(--gold-glow); transform: scale(1); }
-            100% { box-shadow: 0 0 35px var(--cyan-glow), 0 0 15px var(--gold); transform: scale(1.03); }
-        }
-
-        .brand-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 18px;
-            background: #0a0f1d;
-        }
-
-        .brand-name {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffffff 20%, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 10px rgba(255,183,3,0.3));
-        }
-
-        .brand-sub {
-            font-size: 13.5px;
-            color: var(--cyan);
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-
-        /* Language Switcher Button */
-        .lang-btn {
-            background: rgba(0, 240, 255, 0.1);
-            border: 1.5px solid var(--cyan);
-            color: var(--cyan);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 15px var(--cyan-glow);
-        }
-
-        .lang-btn:hover {
-            background: var(--cyan);
-            color: #03050c;
-            box-shadow: 0 0 25px var(--cyan);
-            transform: scale(1.05);
-        }
-
-        /* Moving Dynamic Ticker */
-        .ticker-wrap {
-            background: linear-gradient(90deg, rgba(255,183,3,0.15), rgba(0,240,255,0.15));
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .ticker-move {
-            display: inline-block;
-            animation: tickerMove 22s linear infinite;
-            font-weight: 900;
-            font-size: 16px;
-            color: var(--gold);
-            text-shadow: 0 0 10px var(--gold-glow);
-        }
-
-        @keyframes tickerMove {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* Hero Showcase 5D Effect */
-        .hero {
-            text-align: center;
-            padding: 60px 20px 40px;
-            position: relative;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 183, 3, 0.15);
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            padding: 10px 26px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 900;
-            margin-bottom: 25px;
-            box-shadow: 0 0 30px var(--gold-glow);
-            animation: badgeGlow 2s infinite alternate;
-        }
-
-        @keyframes badgeGlow {
-            0% { transform: scale(1); box-shadow: 0 0 20px var(--gold-glow); }
-            100% { transform: scale(1.05); box-shadow: 0 0 40px var(--gold); }
-        }
-
-        .hero h1 {
-            font-size: 42px;
-            font-weight: 900;
-            margin-bottom: 18px;
-            line-height: 1.3;
-            background: linear-gradient(135deg, #fff 50%, var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-dim);
-            font-size: 18px;
-            max-width: 750px;
-            margin: 0 auto 35px;
-            line-height: 1.7;
-        }
-
-        /* 5D Cyber WhatsApp Button */
-        .wa-cyber-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            background: linear-gradient(135deg, #25d366, #0f8b5f);
-            color: #fff;
-            padding: 18px 42px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 20px;
-            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wa-cyber-btn:hover {
-            transform: translateY(-6px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(37, 211, 102, 0.8);
-        }
-
-        .wa-cyber-btn i {
-            font-size: 30px;
-            animation: waRotate 3s infinite ease-in-out;
-        }
-
-        @keyframes waRotate {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(15deg) scale(1.2); }
-        }
-
-        /* Container & Grid 5D Cards */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin: 70px 0 40px;
-        }
-
-        .section-header h2 {
-            font-size: 32px;
-            font-weight: 900;
-            position: relative;
-            display: inline-block;
-            color: #fff;
-        }
-
-        .section-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 15%;
-            width: 70%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold), var(--cyan), var(--magenta));
-            border-radius: 4px;
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 28px;
-        }
-
-        .card {
-            background: var(--panel-bg);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 30px 22px;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            cursor: pointer;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .card:hover {
-            transform: translateY(-12px) rotateX(4deg) rotateY(-4deg);
-            border-color: var(--gold);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 35px var(--gold-glow);
-        }
-
-        .icon-box {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: rgba(255, 183, 3, 0.15);
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1.5px solid rgba(255, 183, 3, 0.4);
-            box-shadow: 0 0 20px rgba(255,183,3,0.2);
-        }
-
-        .card:hover .icon-box {
-            background: var(--gold);
-            box-shadow: 0 0 35px var(--gold);
-            transform: scale(1.15) rotate(10deg);
-        }
-
-        .icon-box i {
-            font-size: 36px;
-            color: var(--gold);
-        }
-
-        .card:hover .icon-box i {
-            color: #03050c;
-        }
-
-        .card h3 {
-            font-size: 22px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .card p {
-            color: var(--text-dim);
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .card img {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* Clickable 5D Cyan Neon Accent Card */
-        .card.clickable-card {
-            border: 2px solid var(--cyan);
-            box-shadow: 0 0 25px var(--cyan-glow);
-        }
-
-        .card.clickable-card .icon-box {
-            background: rgba(0, 240, 255, 0.15);
-            border-color: var(--cyan);
-            box-shadow: 0 0 20px var(--cyan-glow);
-        }
-
-        .card.clickable-card .icon-box i {
-            color: var(--cyan);
-        }
-
-        .card.clickable-card:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 45px var(--cyan-glow);
-        }
-
-        .card.clickable-card:hover .icon-box {
-            background: var(--cyan);
-            box-shadow: 0 0 40px var(--cyan);
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 90px;
-            background: rgba(2, 4, 8, 0.98);
-            padding: 45px 20px;
-            text-align: center;
-            border-top: 1.5px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-dim);
-        }
-
-        @media (max-width: 600px) {
-            .brand-logo-container { width: 70px; height: 70px; }
-            .brand-name { font-size: 20px; }
-            .brand-sub { font-size: 11px; }
-            .hero h1 { font-size: 26px; }
-            .hero p { font-size: 14.5px; }
-            .wa-cyber-btn { font-size: 16px; padding: 14px 26px; }
-            .lang-btn { font-size: 13px; padding: 8px 14px; }
-        }
-    </style>
 </head>
 <body>
 
-    <!-- 5D Floating Holographic Particles -->
     <div class="holo-bg" id="holoBg"></div>
 
     <header>
         <div class="brand-box">
             <div class="brand-logo-container">
-                <img src="logo.png" alt="لوجو مركز الباشا" class="brand-logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0a0f1d/ffb703?text=الباشا';">
+                <img src="التقاط.PNG" alt="لوجو مركز المهندس" class="brand-logo" onerror="this.onerror=null; this.src='logo.png';">
             </div>
             <div class="brand-title-wrap">
-                <div class="brand-name" id="txt-brand-name">مركز الباشا</div>
-                <div class="brand-sub" id="txt-brand-sub">لصيانة الاجهزه المنزليه والالكترونيه</div>
+                <div class="brand-name" id="txt-brand-name">مركز المهندس للإلكترونيات</div>
+                <div class="brand-sub" id="txt-brand-sub">صيانة جميع أنواع الشاشات</div>
+                <div class="brand-manager" id="txt-brand-manager">إدارة م. محمد التهامي</div>
             </div>
         </div>
 
-        <!-- Language Toggle Button -->
         <button class="lang-btn" onclick="toggleLanguage()">
             <i class="fa-solid fa-globe"></i>
             <span id="lang-btn-text">English</span>
         </button>
     </header>
 
-    <!-- Moving Dynamic Ticker -->
     <div class="ticker-wrap">
         <div class="ticker-move" id="txt-ticker">
-            ⚡ أهلاً بك في مركز الباشا للصيانة المتطورة ⚡ فحص وتشخيص دقيق لجميع الأجهزة المنزلية والشخصية ⚡ ضمان الجودة والسرعة في الإنجاز ⚡ تواصل معنا الآن عبر الواتساب ⚡
+            📺 أهلاً بك في مركز المهندس للإلكترونيات - إدارة م. محمد التهامي 📺 صيانة وتغيير مساطر الليد والبانل لجميع الشاشات 📺 صيانة كروت الباور والماين شاشة 📺 قطع غيار أصلية وضمان معتمد 📺 تواصل معنا الآن عبر الواتساب 📺
         </div>
     </div>
 
     <section class="hero">
         <div class="status-badge">
-            <i class="fa-solid fa-bolt"></i>
-            <span id="txt-badge">المركـز الهندسي المعتمد للرعاية والدقة</span>
+            <i class="fa-solid fa-tv"></i>
+            <span id="txt-badge">المركز المتخصص والمطوّر لصيانة الشاشات</span>
         </div>
-        <h1 id="txt-hero-title">صيانة وتطوير الأجهزة المنزلية والشخصية</h1>
-        <p id="txt-hero-desc">تشخيص دقيق وفحص شامل لجميع الأجهزة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، مكاوي واستشوارات الشعر، الميكروويف، الأفران الكهربائية، الخلاطات، الشفاطات، المراوح، والمكانس)</p>
+        <h1 id="txt-hero-title">صيانة وحلول أعطال جميع أنواع الشاشات والتلفزيونات</h1>
+        <p id="txt-hero-desc">تشخيص دقيق وفحص بالكمبيوتر لجميع الشاشات (LED, LCD, OLED, QLED, Smart TV, Curved, Monitors). تغيير مساطر الإضاءة (LED Strips)، صيانة البانل والخطوط، إصلاح كروت الباور والماين، وشحن الفلاشات بأحدث الأجهزة.</p>
 
-        <a href="https://wa.me/201117213292" target="_blank" class="wa-cyber-btn">
+        <a href="https://wa.me/201122056127" target="_blank" class="wa-cyber-btn">
             <i class="fa-brands fa-whatsapp"></i>
             <span id="txt-wa-btn">تواصل معنا عبر واتساب فوراً</span>
         </a>
@@ -462,146 +55,40 @@
 
     <div class="container">
         <div class="section-header">
-            <h2 id="txt-sec-departments">أقسام الصيانة والتخصصات</h2>
+            <h2 id="txt-sec-departments">خدمات وصيانة الشاشات المتخصصة</h2>
         </div>
         <div class="grid">
             <div class="card">
-                <div class="icon-box">
-                    <i class="fa-solid fa-kitchen-set"></i>
-                </div>
-                <h3 id="txt-cat1-title">أجهزة المطبخ والطهي</h3>
-                <p id="txt-cat1-desc">إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الفابريكا.</p>
+                <div class="icon-box"><i class="fa-solid fa-lightbulb"></i></div>
+                <h3 id="txt-cat1-title">تغيير مساطر الإضاءة (LED)</h3>
+                <p id="txt-cat1-desc">حل مشكلة الصوت الشغال بدون صورة وتغير الإضاءة. نستخدم مساطر أصلية بضمان حقيقي وأعلى كفاءة إضاءة.</p>
             </div>
             <div class="card">
-                <div class="icon-box">
-                    <i class="fa-solid fa-scissors"></i>
-                </div>
-                <h3 id="txt-cat2-title">أجهزة العناية الشخصية</h3>
-                <p id="txt-cat2-desc">صيانة دقيقة لمكائن الحلاقة، مكاوي الشعر، الاستشوار، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).</p>
-            </div>
-            <!-- Clickable Card to Open Fans & Vacuums Page -->
-            <div class="card clickable-card" onclick="window.location.href='fans-vacuums.html'">
-                <div class="icon-box">
-                    <i class="fa-solid fa-fan"></i>
-                </div>
-                <h3 id="txt-cat3-title">قسم المراوح والمكانس 👈</h3>
-                <p id="txt-cat3-desc">اضغط هنا لتصفح المعرض الشامل بالصور لجميع أنواع المراوح (سقف، حائط، عمود، توشيبا، فريش، صيني) والمكانس.</p>
+                <div class="icon-box"><i class="fa-solid fa-border-all"></i></div>
+                <h3 id="txt-cat2-title">صيانة وإصلاح البانل (Panel)</h3>
+                <p id="txt-cat2-desc">معالجة الخطوط العمودية والأفقية والصورة المزدوجة وضبابية الشاشة بأجهزة ماكينات كوف متطورة.</p>
             </div>
             <div class="card">
-                <div class="icon-box">
-                    <i class="fa-solid fa-microchip"></i>
-                </div>
-                <h3 id="txt-cat4-title">فحص الكروت والدوائر</h3>
-                <p id="txt-cat4-desc">تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص الرقمية.</p>
+                <div class="icon-box"><i class="fa-solid fa-microchip"></i></div>
+                <h3 id="txt-cat3-title">كروت الماين والباور</h3>
+                <p id="txt-cat3-desc">إصلاح أعطال عدم القومة (اللمبة الحمراء)، شحن الفلاشات والسوفت وير، وتصليح كروت التغذية والباور.</p>
             </div>
-        </div>
-
-        <div class="section-header">
-            <h2 id="txt-sec-live-logs">سجل أعمال الصيانة الحية</h2>
-        </div>
-        <div id="maintenance-grid" class="grid">
-            <p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);" id="txt-loading">جاري تحميل أحدث أعمال الصيانة...</p>
+            <div class="card">
+                <div class="icon-box"><i class="fa-solid fa-display"></i></div>
+                <h3 id="txt-cat4-title">الشاشات الذكية (Smart TV)</h3>
+                <p id="txt-cat4-desc">حل مشاكل تعليق الشاشة على اللوجو، مشاكل الواي فاي، وتحديث الأنظمة لجميع الماركات العالمية والمحلية.</p>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p style="font-size: 18px; font-weight: 900; color: #fff;" id="txt-footer-title">مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية</p>
-        <p style="margin-top: 8px;" id="txt-footer-sub">ديرب نجم - الشرقية - مصر | 📱 01117213292</p>
+        <p style="font-size: 18px; font-weight: 900; color: #fff;" id="txt-footer-title">مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات</p>
+        <p style="margin-top: 6px; color: var(--gold); font-weight: 700;" id="txt-footer-manager">إدارة م. محمد التهامي</p>
+        <p style="margin-top: 8px;" id="txt-footer-sub">ديرب نجم - الشرقية - مصر | 📱 01122056127</p>
     </footer>
 
     <script>
-        // Language Dictionary
-        let currentLang = 'ar';
-
-        const i18n = {
-            ar: {
-                pageTitle: "مركز الباشا | صيانة الأجهزة المنزلية والإلكترونية",
-                langBtnText: "English",
-                brandName: "مركز الباشا",
-                brandSub: "صيانة وإلكترونيات دقيقة متقدمة",
-                ticker: "⚡ أهلاً بك في مركز الباشا للصيانة المتطورة ⚡ فحص وتشخيص دقيق لجميع الأجهزة المنزلية والشخصية ⚡ ضمان الجودة والسرعة في الإنجاز ⚡ تواصل معنا الآن عبر الواتساب ⚡",
-                badge: "المركـز الهندسي المعتمد للرعاية والدقة",
-                heroTitle: "صيانة وتطوير الأجهزة المنزلية والشخصية",
-                heroDesc: "تشخيص دقيق وفحص شامل لجميع الأجهزة الإلكترونية والمنزلية (مكائن الحلاقة، أجهزة إزالة الشعر، مكاوي واستشوارات الشعر، الميكروويف، الأفران الكهربائية، الخلاطات، الشفاطات، المراوح، والمكانس)",
-                waBtn: "تواصل معنا عبر واتساب فوراً",
-                secDepartments: "أقسام الصيانة والتخصصات",
-                cat1Title: "أجهزة المطبخ والطهي",
-                cat1Desc: "إصلاح وتغيير قطع غيار الميكروويف، الأفران الكهربائية، الخلاطات، العجانات، والشفاطات بجودة الفابريكا.",
-                cat2Title: "أجهزة العناية الشخصية",
-                cat2Desc: "صيانة دقيقة لمكائن الحلاقة، مكاوي الشعر، الاستشوار، وأجهزة إزالة الشعر الحريمي (براون وأخواتها).",
-                cat3Title: "قسم المراوح والمكانس 👈",
-                cat3Desc: "اضغط هنا لتصفح المعرض الشامل بالصور لجميع أنواع المراوح (سقف، حائط، عمود، توشيبا، فريش، صيني) والمكانس.",
-                cat4Title: "فحص الكروت والدوائر",
-                cat4Desc: "تشخيص وتصليح الدوائر الإلكترونية وكروت الكهرباء لأي جهاز منزلي بأحدث أجهزة الفحص الرقمية.",
-                secLiveLogs: "سجل أعمال الصيانة الحية",
-                loading: "جاري تحميل أحدث أعمال الصيانة...",
-                noLogs: "لا توجد أعمال صيانة مسجلة حالياً.",
-                footerTitle: "مركز الباشا لصيانة وتجارة الأجهزة المنزلية والإلكترونية",
-                footerSub: "ديرب نجم - الشرقية - مصر | 📱 01117213292"
-            },
-            en: {
-                pageTitle: "El-Basha Center | Home & Electronic Appliances Repair",
-                langBtnText: "عربي",
-                brandName: "El-Basha Center",
-                brandSub: "Advanced Electronics & Precision Repair",
-                ticker: "⚡ Welcome to El-Basha Advanced Repair Center ⚡ Accurate Inspection for All Home & Personal Appliances ⚡ Guaranteed Quality & Speed ⚡ Contact Us on WhatsApp ⚡",
-                badge: "Certified Engineering Center for Precision Repair",
-                heroTitle: "Maintenance & Enhancement of Home & Personal Appliances",
-                heroDesc: "Accurate diagnosis and complete inspection for hair clippers, epilators, straighteners, hairdryers, microwaves, electric ovens, blenders, hood fans, fans, and vacuums.",
-                waBtn: "Chat via WhatsApp Immediately",
-                secDepartments: "Maintenance Departments & Specialties",
-                cat1Title: "Kitchen & Cooking Appliances",
-                cat1Desc: "Repair and replacement of original parts for microwaves, electric ovens, blenders, mixers, and range hoods.",
-                cat2Title: "Personal Care Appliances",
-                cat2Desc: "Precision repair for hair clippers, straighteners, hair dryers, and women's epilators (Braun and more).",
-                cat3Title: "Fans & Vacuums Section 👈",
-                cat3Desc: "Click here to browse the full photo catalog for all types of fans (Ceiling, Wall, Stand, Toshiba, Fresh, Chinese) and vacuum cleaners.",
-                cat4Title: "PCB & Circuit Board Diagnostics",
-                cat4Desc: "Diagnosis and repair of electronic circuit boards and power modules using modern digital devices.",
-                secLiveLogs: "Live Maintenance Log",
-                loading: "Loading recent maintenance work...",
-                noLogs: "No maintenance logs registered currently.",
-                footerTitle: "El-Basha Center for Maintenance & Appliance Trading",
-                footerSub: "Dyarb Negm - Sharqia - Egypt | 📱 01117213292"
-            }
-        };
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-
-            const langData = i18n[currentLang];
-
-            document.getElementById('page-title').innerText = langData.pageTitle;
-            document.getElementById('lang-btn-text').innerText = langData.langBtnText;
-            document.getElementById('txt-brand-name').innerText = langData.brandName;
-            document.getElementById('txt-brand-sub').innerText = langData.brandSub;
-            document.getElementById('txt-ticker').innerText = langData.ticker;
-            document.getElementById('txt-badge').innerText = langData.badge;
-            document.getElementById('txt-hero-title').innerText = langData.heroTitle;
-            document.getElementById('txt-hero-desc').innerText = langData.heroDesc;
-            document.getElementById('txt-wa-btn').innerText = langData.waBtn;
-            document.getElementById('txt-sec-departments').innerText = langData.secDepartments;
-            document.getElementById('txt-cat1-title').innerText = langData.cat1Title;
-            document.getElementById('txt-cat1-desc').innerText = langData.cat1Desc;
-            document.getElementById('txt-cat2-title').innerText = langData.cat2Title;
-            document.getElementById('txt-cat2-desc').innerText = langData.cat2Desc;
-            document.getElementById('txt-cat3-title').innerText = langData.cat3Title;
-            document.getElementById('txt-cat3-desc').innerText = langData.cat3Desc;
-            document.getElementById('txt-cat4-title').innerText = langData.cat4Title;
-            document.getElementById('txt-cat4-desc').innerText = langData.cat4Desc;
-            document.getElementById('txt-sec-live-logs').innerText = langData.secLiveLogs;
-            document.getElementById('txt-footer-title').innerText = langData.footerTitle;
-            document.getElementById('txt-footer-sub').innerText = langData.footerSub;
-
-            const loadingElem = document.getElementById('txt-loading');
-            if (loadingElem) {
-                loadingElem.innerText = langData.loading;
-            }
-        }
-
-        // Generate 5D Dynamic Holographic Background Particles
+        // Language Switcher & Particle Logic
         const holoBg = document.getElementById('holoBg');
         for (let i = 0; i < 25; i++) {
             const p = document.createElement('div');
@@ -611,46 +98,8 @@
             p.style.height = `${size}px`;
             p.style.left = `${Math.random() * 100}%`;
             p.style.animationDuration = `${Math.random() * 6 + 4}s`;
-            p.style.animationDelay = `${Math.random() * 5}s`;
             holoBg.appendChild(p);
         }
-
-        // Firebase Setup
-        const firebaseConfig = {
-            apiKey: "AIzaSyDummyKeyForStore-ElBasha123",
-            authDomain: "el-basha-store.firebaseapp.com",
-            projectId: "el-basha-store",
-            storageBucket: "el-basha-store.appspot.com",
-            messagingSenderId: "1234567890",
-            appId: "1:1234567890:web:abcdef123456"
-        };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.firestore();
-
-        const grid = document.getElementById('maintenance-grid');
-
-        db.collection('maintenances').onSnapshot((snapshot) => {
-            if (snapshot.empty) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">${i18n[currentLang].noLogs}</p>`;
-                return;
-            }
-            grid.innerHTML = '';
-            snapshot.forEach((doc) => {
-                const item = doc.data();
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>'}
-                    <h3>${item.title || (currentLang === 'ar' ? 'صيانة جهاز' : 'Appliance Repair')}</h3>
-                    <p>${item.desc || (currentLang === 'ar' ? 'تمت الصيانة بنجاح وإعادة الجهاز للعمل بأعلى كفاءة.' : 'Repair completed successfully.')}</p>
-                `;
-                grid.appendChild(card);
-            });
-        }, (error) => {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ff4d4d;">Error loading data.</p>';
-        });
     </script>
 </body>
 </html>

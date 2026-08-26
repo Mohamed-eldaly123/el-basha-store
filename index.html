@@ -367,7 +367,8 @@
     <header>
         <div class="brand-box">
             <div class="brand-logo-container">
-                <img src="التقاط.PNG" alt="لوجو مركز المهندس لصيانة الشاشات" class="brand-logo" onerror="this.onerror=null; this.src='logo.png';">
+                <!-- تجربة المسارات المتعددة واسم اللوجو المباشر والبديل لضمان الظهور على الهاتف والكمبيوتر -->
+                <img src="logo.png" alt="لوجو مركز المهندس لصيانة الشاشات" class="brand-logo" onerror="if (this.src.indexOf('logo.png') !== -1) { this.src='التقاط.PNG'; } else if (this.src.indexOf('التقاط.PNG') !== -1) { this.src='logo.PNG'; }">
             </div>
             <div class="brand-title-wrap">
                 <div class="brand-name" id="txt-brand-name">مركز المهندس للإلكترونيات</div>

@@ -90,8 +90,8 @@
 
         .brand-logo-container {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(135deg, var(--blue-neon), var(--purple-neon), var(--gold));
@@ -158,7 +158,7 @@
             transform: scale(1.05);
         }
 
-        /* Ticker - تم التعديل لعكس الاتجاه */
+        /* Ticker - الحركة من اليسار لليمين */
         .ticker-wrap {
             background: linear-gradient(90deg, rgba(0,210,255,0.15), rgba(157,0,255,0.15));
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -176,7 +176,6 @@
             color: var(--blue-neon);
         }
 
-        /* تم عكس الحركة ليبدأ من اليسار إلى اليمين */
         @keyframes tickerMove {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
@@ -185,7 +184,7 @@
         /* Hero */
         .hero {
             text-align: center;
-            padding: 50px 20px 35px;
+            padding: 40px 20px 35px;
         }
 
         .status-badge {
@@ -199,12 +198,32 @@
             border-radius: 50px;
             font-size: 15px;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             box-shadow: 0 0 20px var(--blue-glow);
         }
 
+        /* Shop Front Hero Frame */
+        .shop-hero-wrapper {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            position: relative;
+            border-radius: 20px;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--blue-neon), var(--purple-neon), var(--gold));
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.3);
+        }
+
+        .shop-hero-img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+        }
+
         .hero h1 {
-            font-size: 38px;
+            font-size: 36px;
             font-weight: 900;
             margin-bottom: 16px;
             background: linear-gradient(135deg, #fff 40%, var(--blue-neon));
@@ -352,10 +371,10 @@
         }
 
         @media (max-width: 600px) {
-            .brand-logo-container { width: 65px; height: 65px; }
-            .brand-name { font-size: 19px; }
+            .brand-logo-container { width: 60px; height: 60px; }
+            .brand-name { font-size: 18px; }
             .brand-sub { font-size: 11px; }
-            .hero h1 { font-size: 24px; }
+            .hero h1 { font-size: 23px; }
             .hero p { font-size: 14px; }
             .wa-cyber-btn { font-size: 15px; padding: 12px 24px; }
         }
@@ -368,7 +387,7 @@
     <header>
         <div class="brand-box">
             <div class="brand-logo-container">
-                <img src="logo.png" alt="لوجو مركز المهندس لصيانة الشاشات" class="brand-logo" onerror="if (this.src.indexOf('logo.png') !== -1) { this.src='التقاط.PNG'; } else if (this.src.indexOf('التقاط.PNG') !== -1) { this.src='logo.PNG'; }">
+                <img src="logo.jpg" alt="لوجو مركز المهندس لصيانة الشاشات" class="brand-logo" onerror="this.src='1000153739.jpg'">
             </div>
             <div class="brand-title-wrap">
                 <div class="brand-name" id="txt-brand-name">مركز المهندس للإلكترونيات</div>
@@ -385,15 +404,21 @@
 
     <div class="ticker-wrap">
         <div class="ticker-move" id="txt-ticker">
-            📺 أهلاً بك في مركز المهندس للإلكترونيات - إدارة م. محمد التهامي(01122056127) 📺 صيانة وتغيير مساطر الليد والبانل لجميع الشاشات 📺 صيانة كروت الباور والماين بورد للشاشات🖥️ قطع غيار أصلية وضمان معتمد 📺 تواصل معنا الآن عبر الواتساب 📺
+            📺 أهلاً بك في مركز المهندس للإلكترونيات - إدارة م. محمد التهامي 📺 خبرة أكثر من 15 سنة في خدمتكم 📺 صيانة وتغيير مساطر الليد والبانل لجميع الشاشات 📺 صيانة كروت الباور والماين 📺 ديرب نجم - خلف السجل المدني - 01122056127 📺
         </div>
     </div>
 
     <section class="hero">
         <div class="status-badge">
             <i class="fa-solid fa-tv"></i>
-            <span id="txt-badge">المركز المتخصص والمطوّر لصيانة الشاشات</span>
+            <span id="txt-badge">خبرة أكثر من 15 سنة في خدمة صيانات الشاشات</span>
         </div>
+
+        <!-- Shop Front Banner Container -->
+        <div class="shop-hero-wrapper">
+            <img src="shop-front.jpg" alt="مركز المهندس للإلكترونيات - ديرب نجم" class="shop-hero-img" onerror="this.src='1000153740.jpg'">
+        </div>
+
         <h1 id="txt-hero-title">صيانة وحلول أعطال جميع أنواع الشاشات والتلفزيونات</h1>
         <p id="txt-hero-desc">تشخيص دقيق وفحص بالكمبيوتر لجميع الشاشات (LED, LCD, OLED, QLED, Smart TV, Curved, Monitors). تغيير مساطر الإضاءة (LED Strips)، صيانة البانل والخطوط، إصلاح كروت الباور والماين، وشحن الفلاشات بأحدث الأجهزة.</p>
 
@@ -441,7 +466,7 @@
     <footer>
         <p style="font-size: 18px; font-weight: 900; color: #fff;" id="txt-footer-title">مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات</p>
         <p style="margin-top: 6px; color: var(--gold); font-weight: 700;" id="txt-footer-manager">إدارة م. محمد التهامي</p>
-        <p style="margin-top: 8px;" id="txt-footer-sub">📍📍الشرقيه-ديرب نجم-شارع صقر للتلج خلف قاعة روتانا📍| ☎️ 01122056127</p>
+        <p style="margin-top: 8px;" id="txt-footer-sub">ديرب نجم - خلف السجل المدني - الشرقية - مصر | 📱 01122056127</p>
     </footer>
 
     <script>
@@ -454,8 +479,8 @@
                 brandName: "مركز المهندس للإلكترونيات",
                 brandSub: "صيانة جميع أنواع الشاشات",
                 brandManager: "إدارة م. محمد التهامي",
-                ticker: "📺 أهلاً بك في مركز المهندس للإلكترونيات - إدارة م. محمد التهامي 📺 صيانة وتغيير مساطر الليد والبانل لجميع الشاشات 📺 صيانة كروت الباور والماين شاشة 📺 قطع غيار أصلية وضمان معتمد 📺 تواصل معنا الآن عبر الواتساب 📺",
-                badge: "المركز المتخصص والمطوّر لصيانة الشاشات",
+                ticker: "📺 أهلاً بك في مركز المهندس للإلكترونيات - إدارة م. محمد التهامي 📺 خبرة أكثر من 15 سنة في خدمة صياناتكم 📺 صيانة وتغيير مساطر الليد والبانل لجميع الشاشات 📺 ديرب نجم - خلف السجل المدني - 01122056127 📺",
+                badge: "خبرة أكثر من 15 سنة في خدمة صيانات الشاشات",
                 heroTitle: "صيانة وحلول أعطال جميع أنواع الشاشات والتلفزيونات",
                 heroDesc: "تشخيص دقيق وفحص بالكمبيوتر لجميع الشاشات (LED, LCD, OLED, QLED, Smart TV, Curved, Monitors). تغيير مساطر الإضاءة (LED Strips)، صيانة البانل والخطوط، إصلاح كروت الباور والماين، وشحن الفلاشات بأحدث الأجهزة.",
                 waBtn: "تواصل معنا عبر واتساب فوراً",
@@ -473,7 +498,7 @@
                 noLogs: "لا توجد أعمال صيانة شاشات مسجلة حالياً.",
                 footerTitle: "مركز المهندس للإلكترونيات | صيانة جميع أنواع الشاشات",
                 footerManager: "إدارة م. محمد التهامي",
-                footerSub: "ديرب نجم - الشرقية - مصر | 📱 01122056127"
+                footerSub: "ديرب نجم - خلف السجل المدني - الشرقية - مصر | 📱 01122056127"
             },
             en: {
                 pageTitle: "El-Mohandes Electronics | All TV & Screen Repair Center",
@@ -481,8 +506,8 @@
                 brandName: "El-Mohandes Electronics",
                 brandSub: "All TV & Screen Repair Center",
                 brandManager: "Managed by Eng. Mohamed El-Tohamy",
-                ticker: "📺 Welcome to El-Mohandes Electronics - Managed by Eng. Mohamed El-Tohamy 📺 LED Strips & Panel Repair for All Screens 📺 Power & Main Board Maintenance 📺 Genuine Spare Parts & Warranty 📺 Contact Us on WhatsApp 📺",
-                badge: "Certified Engineering Center for Screen Repairs",
+                ticker: "📺 Welcome to El-Mohandes Electronics - Managed by Eng. Mohamed El-Tohamy 📺 Over 15 Years of Experience 📺 LED Strips & Panel Repair for All Screens 📺 Dyarb Negm - 01122056127 📺",
+                badge: "Over 15 Years of Certified TV Screen Repair Experience",
                 heroTitle: "Complete Maintenance & Repair for All Screens & TVs",
                 heroDesc: "Precision diagnosis for LED, LCD, OLED, QLED, Smart TV, Curved screens, and Monitors. LED backlight replacement, panel repair, main & power board fix, and EEPROM flashing.",
                 waBtn: "Chat via WhatsApp Immediately",
@@ -496,93 +521,4 @@
                 cat4Title: "Smart TV System Solutions",
                 cat4Desc: "Fixing stuck logo issues, Wi-Fi connectivity problems, and firmware updates for all TV brands.",
                 secLiveLogs: "Live Screen Repair Logs",
-                loading: "Loading recent screen repair logs...",
-                noLogs: "No screen repair logs registered currently.",
-                footerTitle: "El-Mohandes Electronics | Screen Repair Center",
-                footerManager: "Managed by Eng. Mohamed El-Tohamy",
-                footerSub: "Dyarb Negm - Sharqia - Egypt | 📱 01122056127"
-            }
-        };
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-
-            const langData = i18n[currentLang];
-            document.getElementById('page-title').innerText = langData.pageTitle;
-            document.getElementById('lang-btn-text').innerText = langData.langBtnText;
-            document.getElementById('txt-brand-name').innerText = langData.brandName;
-            document.getElementById('txt-brand-sub').innerText = langData.brandSub;
-            document.getElementById('txt-brand-manager').innerText = langData.brandManager;
-            document.getElementById('txt-ticker').innerText = langData.ticker;
-            document.getElementById('txt-badge').innerText = langData.badge;
-            document.getElementById('txt-hero-title').innerText = langData.heroTitle;
-            document.getElementById('txt-hero-desc').innerText = langData.heroDesc;
-            document.getElementById('txt-wa-btn').innerText = langData.waBtn;
-            document.getElementById('txt-sec-departments').innerText = langData.secDepartments;
-            document.getElementById('txt-cat1-title').innerText = langData.cat1Title;
-            document.getElementById('txt-cat1-desc').innerText = langData.cat1Desc;
-            document.getElementById('txt-cat2-title').innerText = langData.cat2Title;
-            document.getElementById('txt-cat2-desc').innerText = langData.cat2Desc;
-            document.getElementById('txt-cat3-title').innerText = langData.cat3Title;
-            document.getElementById('txt-cat3-desc').innerText = langData.cat3Desc;
-            document.getElementById('txt-cat4-title').innerText = langData.cat4Title;
-            document.getElementById('txt-cat4-desc').innerText = langData.cat4Desc;
-            document.getElementById('txt-sec-live-logs').innerText = langData.secLiveLogs;
-            document.getElementById('txt-footer-title').innerText = langData.footerTitle;
-            document.getElementById('txt-footer-manager').innerText = langData.footerManager;
-            document.getElementById('txt-footer-sub').innerText = langData.footerSub;
-        }
-
-        // Particle generator
-        const holoBg = document.getElementById('holoBg');
-        for (let i = 0; i < 20; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const size = Math.random() * 5 + 2;
-            p.style.width = `${size}px`;
-            p.style.height = `${size}px`;
-            p.style.left = `${Math.random() * 100}%`;
-            p.style.animationDuration = `${Math.random() * 6 + 4}s`;
-            holoBg.appendChild(p);
-        }
-
-        // Firebase Setup & Realtime Fetch
-        const firebaseConfig = {
-            apiKey: "AIzaSyDummyKeyForStore-ElMohandes123",
-            authDomain: "el-mohandes-screens.firebaseapp.com",
-            projectId: "el-mohandes-screens",
-            storageBucket: "el-mohandes-screens.appspot.com",
-            messagingSenderId: "1234567890",
-            appId: "1:1234567890:web:abcdef123456"
-        };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.firestore();
-        const grid = document.getElementById('maintenance-grid');
-
-        db.collection('maintenances').onSnapshot((snapshot) => {
-            if (snapshot.empty) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">${i18n[currentLang].noLogs}</p>`;
-                return;
-            }
-            grid.innerHTML = '';
-            snapshot.forEach((doc) => {
-                const item = doc.data();
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div class="icon-box"><i class="fa-solid fa-tv"></i></div>'}
-                    <h3>${item.title || (currentLang === 'ar' ? 'صيانة شاشة' : 'TV Screen Repair')}</h3>
-                    <p>${item.desc || (currentLang === 'ar' ? 'تم إصلاح الشاشة بنجاح واختبار جودة الإضاءة والألوان.' : 'Screen repaired successfully with quality check.')}</p>
-                `;
-                grid.appendChild(card);
-            });
-        }, () => {
-            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-dim);">${i18n[currentLang].noLogs}</p>`;
-        });
-    </script>
-</body>
-</html>
+                loading: "Loading recent screen repair
